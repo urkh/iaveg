@@ -1,0 +1,12 @@
+logs
+project/project
+project/target
+target
+test
+tmp
+dist
+.history
+.settings
+.target
+.project
+.classpath
