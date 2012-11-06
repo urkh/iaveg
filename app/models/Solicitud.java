@@ -1,45 +1,43 @@
 package models;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
-import play.data.format.Formats;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
 @Entity
-public class RegistroConyugue extends Model {
-	
+public class Solicitud extends Model {
+
 	@Id
-	public Long id;
+	public Integer id;
 	
 	@Constraints.Required
-	@OneToOne
+	@ManyToOne
 	public Registro registro;
 	
 	@Constraints.Required
-	public Integer cedula;
+	@ManyToOne
+	public TipoSolicitudes solicitud;
 	
 	@Constraints.Required
-	public String nombres;
+	public String codigo;
 	
 	@Constraints.Required
-	public String apellidos;
+	public Boolean lph;
 	
 	@Constraints.Required
-	@Formats.DateTime(pattern = "yyyy-mm-dd")
-	public Date fechaNac;
+	public String tenencia;
 	
 	@Constraints.Required
-	public String nacionalidad;
+	public String estadoSol;
 	
 	@Constraints.Required
-	public String sexo;
+	public Boolean docCompleta;
+	
+	@Constraints.Required
+	public String observacion;
 	
 	
-	
-
 }

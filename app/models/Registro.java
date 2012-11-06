@@ -46,7 +46,7 @@ public class Registro extends Model {
 	public Date fechaReg;
 	
 	@Constraints.Required
-	public Character nacionalidad;
+	public String nacionalidad;
 	
 	@Constraints.Required
 	public String estadoCivil;
@@ -55,7 +55,15 @@ public class Registro extends Model {
 	public String direccion;
 	
 	@Constraints.Required
-	public Character sexo;
+	public String sexo;
+	
+	@Constraints.Required
+	public Double ingresoMensual;
+	
+	@Constraints.Required
+	public Integer hijos;
+	
+	
 	
 	
 	
