@@ -1,5 +1,8 @@
 package models;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -14,6 +17,21 @@ public class Municipios extends Model {
 	
 	@Constraints.Required
 	public String municipio;
+	
+	
+	/*	Ayudante de consultas genérico para la entidad Municipios */
+	 
+	
+	public static Finder<Long, Municipios> buscar = new Finder<Long, Municipios>(Long.class, Municipios.class);
+	
+	public static Map<String, String> opciones(){
+		LinkedHashMap<String, String> opciones = new LinkedHashMap<String, String>();
+		for (Municipios municipios: Municipios.buscar.orderBy("municipio").findList()){
+			opciones.put(municipios.id.toString(), municipios.municipio);
+		}
+		return opciones;
+	}
+	
 	
 	
 
