@@ -1,5 +1,8 @@
 package models;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -18,5 +21,16 @@ public class TipoSolicitudes extends Model {
 	
 	@Constraints.Required
 	public String codigo;
+	
+	public static Finder<Long, TipoSolicitudes> buscar = new Finder<Long, TipoSolicitudes>(Long.class, TipoSolicitudes.class);
+	
+	public static Map<String, String> opciones (){
+		LinkedHashMap<String, String> opciones = new LinkedHashMap<String, String>();
+		for(TipoSolicitudes tipoSolicitudes: TipoSolicitudes.buscar.orderBy("solicitud").findList()){
+			opciones.put(tipoSolicitudes.id.toString(), tipoSolicitudes.solicitud);
+		}
+		return opciones;
+	}
+	
 
 }

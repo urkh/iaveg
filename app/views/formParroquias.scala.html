@@ -1,0 +1,36 @@
+@(formCParroquias: Form[Parroquias])
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) } 
+
+@main {
+
+   
+    <h1>Agregar Parroquia</h1>
+    
+    @form(routes.CParroquias.guardar()){
+        
+        <fieldset>
+        
+        
+        @select(formCParroquias("municipios.id"), 
+                options(Municipios.opciones), 
+                '_label -> "Municipio", 
+                '_default -> "-- Seleccione un Municipio --",
+                '_showConstraints -> false
+            )
+        
+           @inputText(formCParroquias("parroquia"), 
+            '_label -> "Parroquia")           
+           
+           
+
+        </fieldset>
+        
+        <div class="actions">
+            <input type="submit" value="Guardar" class="btn btn-primary">
+        </div>
+        
+    }
+    
+}

@@ -1,0 +1,5 @@
+# Messages
+
+parroquias.listar.titulo={0,choice,0#No hay resultados|1#1 Resultado|1<{0,number,integer} resultados} encontrados
+
+

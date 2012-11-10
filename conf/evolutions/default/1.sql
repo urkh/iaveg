@@ -11,6 +11,7 @@ create table municipios (
 
 create table parroquias (
   id                        bigint auto_increment not null,
+  municipios_id             bigint,
   parroquia                 varchar(255),
   constraint pk_parroquias primary key (id))
 ;
@@ -66,16 +67,25 @@ create table tipo_solicitudes (
   constraint pk_tipo_solicitudes primary key (id))
 ;
 
-alter table registro add constraint fk_registro_municipios_1 foreign key (municipios_id) references municipios (id) on delete restrict on update restrict;
-create index ix_registro_municipios_1 on registro (municipios_id);
-alter table registro add constraint fk_registro_parroquias_2 foreign key (parroquias_id) references parroquias (id) on delete restrict on update restrict;
-create index ix_registro_parroquias_2 on registro (parroquias_id);
-alter table registro_conyugue add constraint fk_registro_conyugue_registro_3 foreign key (registro_id) references registro (id) on delete restrict on update restrict;
-create index ix_registro_conyugue_registro_3 on registro_conyugue (registro_id);
-alter table solicitud add constraint fk_solicitud_registro_4 foreign key (registro_id) references registro (id) on delete restrict on update restrict;
-create index ix_solicitud_registro_4 on solicitud (registro_id);
-alter table solicitud add constraint fk_solicitud_solicitud_5 foreign key (solicitud_id) references tipo_solicitudes (id) on delete restrict on update restrict;
-create index ix_solicitud_solicitud_5 on solicitud (solicitud_id);
+create table usuarios (
+  usuario                   varchar(255) not null,
+  nombre                    varchar(255),
+  contrasena                varchar(255),
+  constraint pk_usuarios primary key (usuario))
+;
+
+alter table parroquias add constraint fk_parroquias_municipios_1 foreign key (municipios_id) references municipios (id) on delete restrict on update restrict;
+create index ix_parroquias_municipios_1 on parroquias (municipios_id);
+alter table registro add constraint fk_registro_municipios_2 foreign key (municipios_id) references municipios (id) on delete restrict on update restrict;
+create index ix_registro_municipios_2 on registro (municipios_id);
+alter table registro add constraint fk_registro_parroquias_3 foreign key (parroquias_id) references parroquias (id) on delete restrict on update restrict;
+create index ix_registro_parroquias_3 on registro (parroquias_id);
+alter table registro_conyugue add constraint fk_registro_conyugue_registro_4 foreign key (registro_id) references registro (id) on delete restrict on update restrict;
+create index ix_registro_conyugue_registro_4 on registro_conyugue (registro_id);
+alter table solicitud add constraint fk_solicitud_registro_5 foreign key (registro_id) references registro (id) on delete restrict on update restrict;
+create index ix_solicitud_registro_5 on solicitud (registro_id);
+alter table solicitud add constraint fk_solicitud_solicitud_6 foreign key (solicitud_id) references tipo_solicitudes (id) on delete restrict on update restrict;
+create index ix_solicitud_solicitud_6 on solicitud (solicitud_id);
 
 
 
@@ -94,6 +104,8 @@ drop table registro_conyugue;
 drop table solicitud;
 
 drop table tipo_solicitudes;
+
+drop table usuarios;
 
 SET FOREIGN_KEY_CHECKS=1;
 
