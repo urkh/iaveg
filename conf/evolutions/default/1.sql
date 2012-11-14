@@ -69,8 +69,11 @@ create table tipo_solicitudes (
 
 create table usuarios (
   usuario                   varchar(255) not null,
-  nombre                    varchar(255),
   contrasena                varchar(255),
+  nombre                    varchar(255),
+  apellido                  varchar(255),
+  sexo                      varchar(255),
+  theme                     varchar(255),
   constraint pk_usuarios primary key (usuario))
 ;
 

@@ -8,7 +8,7 @@ import play.mvc.Result;
 import play.mvc.Security;
 import views.html.editarParroquias;
 import views.html.formParroquias;
-import views.html.listaParroquias;
+import views.html.listarParroquias;
 
 @Security.Authenticated(Seguridad.class)
 public class CParroquias extends Controller {
@@ -23,7 +23,7 @@ public class CParroquias extends Controller {
 	
 	
 	public static Result listar(int pagina, String ordenarPor, String orden, String filtro) {
-		return ok(listaParroquias.render(Parroquias.pagina(pagina, 10, ordenarPor, orden, filtro), ordenarPor, orden, filtro));
+		return ok(listarParroquias.render(Parroquias.pagina(pagina, 10, ordenarPor, orden, filtro), ordenarPor, orden, filtro));
 	}
 	
 	public static Result editar(Long id){
@@ -43,7 +43,7 @@ public class CParroquias extends Controller {
 	}
 	
 	
-	public static Result crear() {
+	public static Result nuevo() {
 		Form<Parroquias> formCParroquias = form(Parroquias.class);
 		return ok(formParroquias.render(formCParroquias));
 	}

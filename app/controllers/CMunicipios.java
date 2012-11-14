@@ -16,7 +16,7 @@ public class CMunicipios extends Controller {
 		return Inicio;
 	}
 	
-	public static Result crear() {
+	public static Result nuevo() {
 		Form<Municipios> formCMunicipios = form(Municipios.class);
 		return ok(formMunicipios.render(formCMunicipios));
 	}

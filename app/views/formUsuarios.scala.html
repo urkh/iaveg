@@ -1,0 +1,100 @@
+@(formUsuarios: Form[Usuario])
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) } 
+
+@main {
+
+    <script>
+ 
+    var sexo = $.fn.button.prototype.constructor.Constructor.prototype.toggle;
+    $.fn.button.prototype.constructor.Constructor.prototype.toggle = function(){
+        sexo.apply(this);
+        var $parent = this.$element.parent('[data-toggle="buttons-radio"]')
+        var target = $parent ? $parent.data('target') : undefined;
+        var value = this.$element.attr('value');
+        if(target && value){
+            $('#'+target).val(value);
+        }
+    }
+    </script>
+
+    
+    
+    <h1>Agregar nuevo</h1>
+    
+    @form(routes.CUsuario.guardar()){
+    
+    
+        
+        <fieldset>
+             
+               
+        @if(flash.containsKey("error")) {
+        
+            <div class="alert alert-error">
+                <strong>Error!</strong> @flash.get("error")
+            </div>
+        }       
+        
+        
+            @inputText(formUsuarios("nombre"), 
+                '_label -> "Nombre"
+            )
+            
+            <br>
+            
+            
+            @inputText(formUsuarios("apellido"), 
+                '_label -> "Apellido"
+            )
+            
+            <br>         
+            
+             @input(formUsuarios("sexo"), 
+                '_label -> "Sexo", 
+                '_showConstraints -> false
+            ) { (id, name, value, args) =>   
+                <input type="hidden" id="@id" name="@name" value="@value" @toHtmlArgs(args) />
+                <div class="btn-group" data-toggle="buttons-radio" data-target="sexo"> 
+                    <button type="button" class="btn btn-inverse" data-toggle="button" value="Masculino">Masculino</button>
+                    <button type="button" class="btn btn-inverse" data-toggle="button" value="Ninguno">Ninguno</button>                   
+                    <button type="button" class="btn btn-inverse" data-toggle="button" value="Femenino">Femenino</button>
+                    
+                </div>
+            } 
+            
+             <br>
+             <div class="form-inline">
+             
+             	<div class="input-prepend">
+             		<span class="add-on"><i class="icon-user"></i></span>
+              		<input name="usuario" type="text" placeholder="Usuario">
+             	</div>
+             	-
+             	<div class="input-append">
+             		
+					<input name="contrasena" type="password" placeholder="Contrasena">
+					<span class="add-on"><i class="icon-signal"></i></span>
+					
+				</div>	
+				
+			</div>
+            
+
+    
+            
+            <br><br>
+        ​
+            
+
+        </fieldset>
+        
+        <div class="actions">
+            <input type="submit" value="Guardar" class="btn btn-primary"> o 
+            <a href="@routes.CUsuario.listar()" class="btn">Cancelar</a> 
+        </div>
+        
+    }
+    
+}
