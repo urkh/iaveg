@@ -10,6 +10,8 @@ import play.data.format.Formats;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
+import com.avaje.ebean.Page;
+
 
 @Entity
 public class Registro extends Model {
@@ -62,6 +64,17 @@ public class Registro extends Model {
 	
 	@Constraints.Required
 	public Integer hijos;
+	
+	
+	
+	public static Finder<Long, Registro> buscar = new Finder<Long, Registro>(Long.class, Registro.class);
+	
+	public static Page<Registro> pagina(int pagina, int tamanoPagina, String ordenarPor, String ordenar, String filtrar) {
+		return buscar.where().ilike("cedula", "%" + filtrar + "%").orderBy(ordenarPor + " " + ordenar).findPagingList(tamanoPagina).getPage(pagina);
+	}
+	
+	
+	
 	
 	
 	

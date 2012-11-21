@@ -1,4 +1,4 @@
-@(paginaActual: Page[Usuario], currentSortBy: String, currentOrder: String, currentFilter: String)
+@(paginaActual: Page[Registro], currentSortBy: String, currentOrder: String, currentFilter: String)
 
 
 @link(newPage:Int, newSortBy:String) = @{
@@ -19,7 +19,7 @@
         }
     }
     
-    routes.CUsuario.listar(newPage, sortBy, order, currentFilter)
+    routes.CRegistro.listar(newPage, sortBy, order, currentFilter)
     
 }
 
@@ -36,10 +36,9 @@
         $(function () {
             $("[rel=tooltip]").tooltip();
         });
-            
     </script>
     
-    <h1 id="homeTitle">@Messages("usuarios.listar.titulo", paginaActual.getTotalRowCount)</h1>
+    <h1 id="homeTitle">@Messages("registros.listar.titulo", paginaActual.getTotalRowCount)</h1>
 
     @if(flash.containsKey("exito")) {
         <div class="alert alert-success">
@@ -49,7 +48,7 @@
 
     <div id="actions">
         
-        <form action="@link(0, "usuario")" method="GET">
+        <form action="@link(0, "cedula")" method="GET">
         <div class="input-append">
         
             <input class="span3" id="appendedInputButton" size="16" name="busqueda" type="text" value="@currentFilter" placeholder="Ingrese un nombre...">
@@ -58,7 +57,7 @@
         </div>
         </form>
         
-        <a data-target="#formNuevo" data-toggle="modal" href="@routes.CUsuario.nuevo()" rel="tooltip" data-placement="left" title="Agregar un usuario" class="btn btn-success" id="add">Nuevo</a>
+        <a rel="tooltip" data-placement="left" title="Agregar un Registro" class="btn btn-success" id="add" href="@routes.CRegistro.nuevo()">Nuevo</a>
         
     </div>
     
@@ -73,29 +72,35 @@
         <table class="table table-striped table-bordered table-hover">
             <thead>
                 <tr>
-                	@header("usuario", "Usuario")
-                	@header("nombre", "Nombre")
-                	@header("apellido", "Apellido")
-                  	
-                  
+                    @header("cedula", "Cedula")
+                    @header("nombres", "Nombre")
+                    @header("apellidos", "Apellido")
+                    @header("sexo", "Sexo")
+                    
                 </tr>
             </thead>
             <tbody>
 
-                @for(usuarios <- paginaActual.getList) {
+                @for(registros <- paginaActual.getList) {
                     <tr>
                         <td>
-                        <a data-target="#formEditar" data-toggle="modal" href="@routes.CUsuario.editar(usuarios.usuario)" rel="tooltip" data-placement="right" title="Editar -> @usuarios.usuario">@usuarios.usuario</a>
-                     
+                            <a href="#" rel="tooltip" data-placement="right" title="@registros.cedula">@registros.cedula</a>
                         </td>
                         
                         <td>
-                            <span rel="tooltip" data-placement="left" title="@usuarios.nombre">@usuarios.nombre</span>   
+                         
+                            <span rel="tooltip" data-placement="left" title="@registros.nombres">@registros.nombres</span>
+                                
                         </td>
                         
-                        <td>
-                            <span rel="tooltip" data-placement="left" title="@usuarios.apellido">@usuarios.apellido</span>   
+                         <td>
+                            <span rel="tooltip" data-placement="left" title="@registros.apellidos">@registros.apellidos</span>   
                         </td>
+                        
+                         <td>
+                            <span rel="tooltip" data-placement="left" title="@registros.sexo">@registros.sexo</span>      
+                        </td>
+
                     </tr>
                 }
 
@@ -129,34 +134,7 @@
         </div>
         
     }
-    
-
-
-<div id="formEditar" class="modal fade hide" tabindex="-1" role="dialog" aria-hidden="true" >
-
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		<h3 id="myModalLabel">Editar Usuario</h3>
-	</div>
-
-	<div class="modal-body"></div>
-
-</div>
- 
-
-
-<div id="formNuevo" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
-
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		<h3>Nuevo Usuario</h3>
-	</div>
-     
-	<div class="modal-body"></div>
-
-</div>
         
-
-         
 }
-  
+
+            

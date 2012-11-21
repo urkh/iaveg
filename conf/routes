@@ -24,11 +24,21 @@ GET     /municipios/nuevo              	controllers.CMunicipios.nuevo()
 POST    /municipios                  	controllers.CMunicipios.guardar()
 
 
+# CRUD registro
+GET     /registro/nuevo              	controllers.CRegistro.nuevo()
+POST    /registro                  		controllers.CRegistro.guardar()
+GET     /registro                 		controllers.CRegistro.listar(p:Int ?= 0, s ?= "cedula", o ?= "asc", busqueda ?= "")
+
+
+
 
 # CRUD usuarios
-GET		/usuarios/nuevo					controllers.CUsuario.nuevo()
+GET     /usuarios/nuevo              	controllers.CUsuario.nuevo()
 POST	/usuarios						controllers.CUsuario.guardar()
 GET     /usuarios                 		controllers.CUsuario.listar(p:Int ?= 0, s ?= "usuario", o ?= "asc", busqueda ?= "")
+GET		/usuarios/:usuario				controllers.CUsuario.editar(usuario:String)
+POST	/usuarios/:usuario				controllers.CUsuario.actualizar(usuario:String)
+POST    /usuarios/:usuario/borrar		controllers.CUsuario.borrar(usuario:String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
