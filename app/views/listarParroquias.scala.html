@@ -57,7 +57,7 @@
         </div>
         </form>
         
-        <a rel="tooltip" data-placement="left" title="Agregar una Parroquia" class="btn btn-success" id="add" href="@routes.CParroquias.nuevo()">Nueva</a>
+        <a data-target="#formNuevo" data-toggle="modal" rel="tooltip" data-placement="left" title="Agregar una Parroquia" class="btn btn-success" id="add" href="@routes.CParroquias.nuevo()">Nueva</a>
         
     </div>
     
@@ -81,7 +81,7 @@
                 @for(parroquias <- paginaActual.getList) {
                     <tr>
                         <td>
-                            <a href="@routes.CParroquias.editar(parroquias.id)" rel="tooltip" data-placement="right" title="@parroquias.parroquia">@parroquias.parroquia</a>
+                            <a data-target="#formEditar" data-toggle="modal" href="@routes.CParroquias.editar(parroquias.id)" rel="tooltip" data-placement="right" title="@parroquias.parroquia">@parroquias.parroquia</a>
                         </td>
                         
                         <td>
@@ -122,6 +122,32 @@
         </div>
         
     }
+    
+<div id="formEditar" class="modal fade hide" tabindex="-1" role="dialog" aria-hidden="true" >
+
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3 id="myModalLabel">Editar Parroquia</h3>
+	</div>
+
+	<div class="modal-body"></div>
+
+</div>
+
+
+
+<div id="formNuevo" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3>Nueva Parroquia</h3>
+	</div>
+     
+	<div class="modal-body"></div>
+
+</div>
+    
+    
         
 }
 

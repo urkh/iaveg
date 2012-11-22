@@ -2,16 +2,21 @@
 
 @import helper._
 
-@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) } 
-
-@main {
+	<script src="@routes.Assets.at("javascripts/jquery-1.8.1.min.js")"></script>
+    <script src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
 
    
-    <h1>Editar Parroquia</h1>
+
     
     @form(routes.CParroquias.actualizar(id)){
+    
+    	@if(flash.containsKey("error")) {
         
-        <fieldset>
+            <div class="alert alert-error">
+                <strong>Error!</strong> @flash.get("error")
+            </div>
+        }     
+
         
         
         @select(formCParroquias("municipios.id"), 
@@ -22,16 +27,17 @@
             )
         
            @inputText(formCParroquias("parroquia"), 
-            '_label -> "Parroquia")           
+            '_label -> "Parroquia",
+            '_showConstraints -> false
+            )           
            
            
-
-        </fieldset>
         
-        <div class="actions">
-            <input type="submit" value="Guardar" class="btn btn-primary">
-        </div>
         
-    }
+        	<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+        	<input type="submit" value="Guardar" class="btn btn-primary">
+    	</div>
+ 
     
 }

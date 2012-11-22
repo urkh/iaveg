@@ -1,16 +1,22 @@
 @(formCParroquias: Form[Parroquias])
 @import helper._
 
-@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) } 
 
-@main {
+   		<script src="@routes.Assets.at("javascripts/jquery-1.8.1.min.js")"></script>
+        <script src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
 
-   
-    <h1>Agregar Parroquia</h1>
+
     
     @form(routes.CParroquias.guardar()){
+    
+    
+     @if(flash.containsKey("error")) {
         
-        <fieldset>
+            <div class="alert alert-error">
+                <strong>Error!</strong> @flash.get("error")
+            </div>
+        }   
+
         
         
         @select(formCParroquias("municipios.id"), 
@@ -19,18 +25,18 @@
                 '_default -> "-- Seleccione un Municipio --",
                 '_showConstraints -> false
             )
+            
         
            @inputText(formCParroquias("parroquia"), 
-            '_label -> "Parroquia")           
+            '_label -> "Parroquia",
+            '_showConstraints -> false
+            )
            
            
+			<div class="modal-footer">
+				<button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+        		<input type="submit" value="Guardar" class="btn btn-primary">
+    		</div>
 
-        </fieldset>
-        
-        <div class="actions">
-            <input type="submit" value="Guardar" class="btn btn-primary">
-        </div>
-        
-    }
     
 }
