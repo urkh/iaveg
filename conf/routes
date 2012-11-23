@@ -28,6 +28,8 @@ POST    /municipios                  	controllers.CMunicipios.guardar()
 GET     /registro/nuevo              	controllers.CRegistro.nuevo()
 POST    /registro                  		controllers.CRegistro.guardar()
 GET     /registro                 		controllers.CRegistro.listar(p:Int ?= 0, s ?= "cedula", o ?= "asc", busqueda ?= "")
+GET     /registro/:id              		controllers.CRegistro.editar(id:Long)
+POST    /registro/:id              		controllers.CRegistro.actualizar(id:Long)
 
 
 

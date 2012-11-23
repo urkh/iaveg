@@ -5,6 +5,7 @@ import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.formRegistros;
+import views.html.editarRegistros;
 import views.html.listarRegistros;
 
 public class CRegistro extends Controller {
@@ -29,6 +30,23 @@ public class CRegistro extends Controller {
 	}
 	
 	
+	public static Result editar(Long id){
+		Form<Registro> formCRegistro = form(Registro.class).fill(Registro.buscar.byId(id));
+		return ok(editarRegistros.render(id, formCRegistro));
+	}
+	
+	public static Result actualizar(Long id){
+		Form<Registro> formCRegistros = form(Registro.class).bindFromRequest();
+		if(formCRegistros.hasErrors()){
+			return badRequest(editarRegistros.render(id, formCRegistros));
+		}
+		
+		formCRegistros.get().update(id);
+		flash("exito", "La Solicitud  ha sido actualizada con exito");
+		return Inicio;
+	}
+	
+	
 	public static Result guardar(){
 		
 		Form<Registro> formCRegistro = form(Registro.class).bindFromRequest();
@@ -38,7 +56,7 @@ public class CRegistro extends Controller {
 		}
 		
 		formCRegistro.get().save();
-		flash("exito", "El registro se ha realizado exitosamente!");
+		flash("exito", "El registro de solicitud se ha realizado exitosamente!");
 		return Inicio;
 			
 	}

@@ -16,7 +16,6 @@ import com.avaje.ebean.Page;
 @Entity
 public class Registro extends Model {
 
-
 	@Id
 	public Long id;
 	
@@ -32,10 +31,10 @@ public class Registro extends Model {
 	public Integer cedula;
 	
 	@Constraints.Required
-	public String nombres;
+	public String nombre;
 	
 	@Constraints.Required
-	public String apellidos;
+	public String apellido;
 	
 	public String telefono;
 	

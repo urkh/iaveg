@@ -1,12 +1,17 @@
-@(formRegistro: Form[Registro])
+@(formRegistros: Form[Registro])
 @import helper._
 
-@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) } 
 
-@main {
-
-    <script>
+    
+ 	<link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/united.min.css")"> 
+	<script src="@routes.Assets.at("javascripts/jquery-1.8.1.min.js")"></script>
+	<script src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
+	<script src="@routes.Assets.at("javascripts/bootstrap-datepicker.js")"></script>
+	
+	<script>
  
+	$(function(){$('#fechaNac').datepicker();});
+
     var sexo = $.fn.button.prototype.constructor.Constructor.prototype.toggle;
     $.fn.button.prototype.constructor.Constructor.prototype.toggle = function(){
         sexo.apply(this);
@@ -20,16 +25,9 @@
     </script>
 
     
+    @form(routes.CRegistro.guardar()){
     
-    <h1>Agregar nuevo</h1>
-    
-    @form(routes.CUsuario.guardar()){
-    
-    
-        
-        <fieldset>
-             
-               
+  
         @if(flash.containsKey("error")) {
         
             <div class="alert alert-error">
@@ -38,54 +36,50 @@
         }       
         
         
-        @inputText(formRegistro("cedula"), 
-                '_label -> "Cedula"
+        @inputText(formRegistros("cedula"), 
+                '_label -> "Cedula",
+                '_showConstraints -> false
             )
-            
-            <br>
         
         
-            @inputText(formRegistro("nombre"), 
-                '_label -> "Nombre"
+         @inputText(formRegistros("nombre"), 
+                '_label -> "Nombre",
+                '_showConstraints -> false
             )
             
-            <br>
-            
-            
-            @inputText(formRegistro("apellido"), 
-                '_label -> "Apellido"
+            @inputText(formRegistros("apellido"), 
+                '_label -> "Apellido",
+                '_showConstraints -> false
             )
             
-            <br>         
-            
-             @input(formRegistro("sexo"), 
+            @input(formRegistros("fechaNac"), 
+                '_label -> "Fecha Nacimiento", 
+                '_showConstraints -> false
+            ) { (id, name, value, args) =>        
+                    <div id="fechaNac" class="input-append date" name="fechaNac"  data-date-format="yyyy-mm-dd">
+                        <input class="span3" type="text" id="@id" name="@name" value="@value" @toHtmlArgs(args) />
+                        <span class="add-on"><i class="icon-th"></i></span>
+                    </div>
+            }
+       
+             @input(formRegistros("sexo"), 
                 '_label -> "Sexo", 
                 '_showConstraints -> false
             ) { (id, name, value, args) =>   
                 <input type="hidden" id="@id" name="@name" value="@value" @toHtmlArgs(args) />
                 <div class="btn-group" data-toggle="buttons-radio" data-target="sexo"> 
-                    <button type="button" class="btn btn-inverse" data-toggle="button" value="Masculino">Masculino</button>
-                    <button type="button" class="btn btn-inverse" data-toggle="button" value="Ninguno">Ninguno</button>                   
+                    <button type="button" class="btn btn-inverse" data-toggle="button" value="Masculino">Masculino</button>                   
+                    <button type="button" class="btn btn-inverse" data-toggle="button" value="Ninguno">Ninguno</button>
                     <button type="button" class="btn btn-inverse" data-toggle="button" value="Femenino">Femenino</button>
-                    
                 </div>
-            } 
+            }
             
-            
-
-    
-            
-            <br><br>
-        ​
-            
-
-        </fieldset>
+ 
+       
+ 		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+        	<input type="submit" value="Guardar" class="btn btn-primary">
+    	</div>
         
-        <div class="actions">
-            <input type="submit" value="Guardar" class="btn btn-primary"> o 
-          <!--   <a href="@routes.CUsuario.listar()" class="btn">Cancelar</a> --> 
-        </div>
-        
-    }
-    
+
 }
