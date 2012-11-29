@@ -1,5 +1,5 @@
 @(paginaActual: Page[Usuario], currentSortBy: String, currentOrder: String, currentFilter: String)
-
+@import helper._
 
 @link(newPage:Int, newSortBy:String) = @{
     
@@ -36,6 +36,17 @@
         $(function () {
             $("[rel=tooltip]").tooltip();
         });
+        
+        var sexo = $.fn.button.prototype.constructor.Constructor.prototype.toggle;
+        $.fn.button.prototype.constructor.Constructor.prototype.toggle = function(){
+            sexo.apply(this);
+            var $parent = this.$element.parent('[data-toggle="buttons-radio"]')
+            var target = $parent ? $parent.data('target') : undefined;
+            var value = this.$element.attr('value');
+            if(target && value){
+                $('#'+target).val(value);
+            }
+        }
             
     </script>
     
@@ -58,7 +69,7 @@
         </div>
         </form>
         
-        <a data-target="#formNuevo" data-toggle="modal" href="@routes.CUsuario.nuevo()" rel="tooltip" data-placement="left" title="Agregar un usuario" class="btn btn-success" id="add">Nuevo</a>
+        <a data-toggle="modal" href="#formNuevo" rel="tooltip" data-placement="left" title="Agregar un usuario" class="btn btn-success" id="add">Nuevo</a>
         
     </div>
     
@@ -74,6 +85,7 @@
             <thead>
                 <tr>
                 	@header("usuario", "Usuario")
+                	@header("cedula", "Cedula")
                 	@header("nombre", "Nombre")
                 	@header("apellido", "Apellido")
                   	
@@ -87,6 +99,10 @@
                         <td>
                         <a data-target="#formEditar" data-toggle="modal" href="@routes.CUsuario.editar(usuarios.usuario)" rel="tooltip" data-placement="right" title="Editar -> @usuarios.usuario">@usuarios.usuario</a>
                      
+                        </td>
+                        
+                        <td>
+                            <span rel="tooltip" data-placement="left" title="@usuarios.cedula">@usuarios.cedula</span>   
                         </td>
                         
                         <td>
@@ -144,17 +160,79 @@
 </div>
  
 
-
+@form(routes.CUsuario.guardar()){ 
 <div id="formNuevo" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
 
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 		<h3>Nuevo Usuario</h3>
 	</div>
-     
-	<div class="modal-body"></div>
+    
+    
+
+	<div class="modal-body form-horizontal">
+	
+		<div class="control-group">
+        	<label class="control-label">Cedula</label>
+        	<div class="controls">
+          		<input id="cedula" name="cedula" type="text">
+        	</div>
+   		</div>
+    
+    	<div class="control-group">
+        	<label class="control-label">Nombre</label>
+        	<div class="controls">
+          		<input id="nombre" name="nombre" type="text">
+        	</div>
+      	</div>
+        
+        <div class="control-group">
+        	<label class="control-label">Apellido</label>
+        	<div class="controls">
+          		<input id="apellido" name="apellido" type="text">
+        	</div>
+      	</div>
+      	
+      	<div class="control-group">
+        	<label class="control-label">Sexo</label>
+        	<div class="controls">
+        	
+				<input type="hidden" id="sexo" name="sexo"  />
+                <div class="btn-group" data-toggle="buttons-radio" data-target="sexo"> 
+                    <button type="button" class="btn btn-inverse" data-toggle="button" value="Masculino">Masculino</button>                   
+                    <button type="button" class="btn btn-inverse" data-toggle="button" value="Ninguno">Ninguno</button>
+                    <button type="button" class="btn btn-inverse" data-toggle="button" value="Femenino">Femenino</button>
+                </div>
+            </div>
+      	</div>
+      	
+      	<div class="control-group input-prepend">
+        	<label class="control-label">Usuario</label>
+        	<div class="controls">
+        		<span class="add-on"><i class="icon-user"></i></span>
+          		<input id="usuario" name="usuario" type="text">
+        	</div>
+      	</div>
+        
+        <div class="control-group input-prepend">
+        	<label class="control-label">Contrasena</label>
+        	<div class="controls">
+        		<span class="add-on"><i class="icon-signal"></i></span>
+          		<input id="contrasena" name="contrasena" type="password">
+        	</div>
+      	</div>
+	
+	</div>
+
+	
+	<div class="modal-footer">
+		<button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+        <input type="submit" value="Guardar" class="btn btn-primary">
+    </div>
 
 </div>
+
+}
         
 
          

@@ -21,13 +21,9 @@ public class Registro extends Model {
 	
 	@Constraints.Required
 	@OneToOne
-	public Municipios municipios;
-	
-	@Constraints.Required
-	@OneToOne
 	public Parroquias parroquias;
 	
-	@Constraints.Required(message = "Este campo es requerido")
+	@Constraints.Required
 	public Integer cedula;
 	
 	@Constraints.Required

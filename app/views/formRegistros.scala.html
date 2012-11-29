@@ -1,21 +1,25 @@
 @(formRegistros: Form[Registro])
 @import helper._
-
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) } 
 
     
  	<link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/united.min.css")"> 
-    <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/datepicker.css")">
+    <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/bootstrap-datepicker.css")">
 	<script src="@routes.Assets.at("javascripts/jquery-1.8.1.min.js")"></script>
 	<script src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
 	<script src="@routes.Assets.at("javascripts/bootstrap-datepicker.js")"></script>
 	
 	<script>
  
+	
+	
+	$(function () {
+		$("[rel=fecha]").datepicker({noOffset: true});
+    });
 
-
-    var sexo = $.fn.button.prototype.constructor.Constructor.prototype.toggle;
+    var radio = $.fn.button.prototype.constructor.Constructor.prototype.toggle;
     $.fn.button.prototype.constructor.Constructor.prototype.toggle = function(){
-        sexo.apply(this);
+        radio.apply(this);
         var $parent = this.$element.parent('[data-toggle="buttons-radio"]')
         var target = $parent ? $parent.data('target') : undefined;
         var value = this.$element.attr('value');
@@ -38,12 +42,14 @@
             </div>
         }       
         
- 		<div class="control-group">
-        	<label class="control-label">Cedula</label>
-        	<div class="controls">
-          		<input name="cedula" type="text">
-        	</div>
-      	</div>
+ 		@inputText(formRegistros("cedula"), 
+ 			'_label -> "Cedula",
+ 			'class -> "input-small"
+ 		)  
+ 		
+ 		@inputText(formRegistros("nombre"), 
+ 			'_label -> "Nombre"
+ 		) 
       	
       	
       	<div class="control-group">
@@ -63,7 +69,14 @@
 		<div class="control-group">
         	<label class="control-label">Fecha Nacimiento</label>
         	<div class="controls">
-          		<input name="fechaNac" type="text">
+          		<input class="input-small" rel="fecha" id="fechaNac" name="fechaNac" type="text">
+        	</div>
+      	</div>
+      	
+      	<div class="control-group">
+        	<label class="control-label">Fecha Registro</label>
+        	<div class="controls">
+          		<input class="input-small" rel="fecha" id="fechaNac" name="fechaReg" type="text">
         	</div>
       	</div>
       	
@@ -74,10 +87,73 @@
 				<input type="hidden" id="sexo" name="sexo"  />
                 <div class="btn-group" data-toggle="buttons-radio" data-target="sexo"> 
                     <button type="button" class="btn btn-inverse" data-toggle="button" value="Masculino">Masculino</button>                   
-                    <button type="button" class="btn btn-inverse" data-toggle="button" value="Ninguno">Ninguno</button>
                     <button type="button" class="btn btn-inverse" data-toggle="button" value="Femenino">Femenino</button>
                 </div>
             </div>
+      	</div>
+      	
+      	<div class="control-group">
+        	<label class="control-label">Nacionalidad</label>
+        	<div class="controls">
+        	
+				<input type="hidden" id="nacionalidad" name="nacionalidad"  />
+                <div class="btn-group" data-toggle="buttons-radio" data-target="nacionalidad"> 
+                    <button type="button" class="btn btn-inverse" data-toggle="button" value="Venezolano">Venezolano</button>                   
+                    <button type="button" class="btn btn-inverse" data-toggle="button" value="Extranjero">Extranjero</button>
+                </div>
+            </div>
+      	</div>
+      	
+      	
+      	<div class="control-group">
+        	<label class="control-label">Estado Civil</label>
+        	<div class="controls">
+        	
+				<input type="hidden" id="estadoCivil" name="estadoCivil"  />
+                <div class="btn-group" data-toggle="buttons-radio" data-target="estadoCivil"> 
+                    <button type="button" class="btn btn-inverse" data-toggle="button" value="Soltero">Soltero</button>                   
+                    <button type="button" class="btn btn-inverse" data-toggle="button" value="Casado">Casado</button>
+                    <button type="button" class="btn btn-inverse" data-toggle="button" value="Divorciado">Divorciado</button>
+                    <button type="button" class="btn btn-inverse" data-toggle="button" value="Concubinato">Concubinato</button>
+                </div>
+            </div>
+      	</div>
+      	
+      	
+			@select(formRegistros("parroquias.id"), 
+                options(Parroquias.opciones), 
+                 '_label -> "Parroquia",
+                '_default -> "-- Seleccione una Parroquia --",
+                '_showConstraints -> false
+            )
+      	
+      	
+      	<div class="control-group">
+        	<label class="control-label">Direccion</label>
+        	<div class="controls">
+          		<textarea id="direccion" name="direccion" rows="3"></textarea>
+        	</div>
+      	</div>
+      	
+      	<div class="control-group">
+        	<label class="control-label">Telefono</label>
+        	<div class="controls">
+          		<input class="input-small" id="telefono" name="telefono" type="text">
+        	</div>
+      	</div>
+      	
+      	<div class="control-group">
+        	<label class="control-label">Ingreso Mensual</label>
+        	<div class="controls">
+          		<input class="input-small" id="ingresoMensual" name="ingresoMensual" type="text">
+        	</div>
+      	</div>
+      	
+      	<div class="control-group">
+        	<label class="control-label">Hijos</label>
+        	<div class="controls">
+          		<input class="input-mini" id="hijos" name="hijos" type="text">
+        	</div>
       	</div>
             
  

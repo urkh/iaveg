@@ -26,6 +26,9 @@ public class Usuario extends Model {
     public String contrasena;
     
     @Constraints.Required
+    public Integer cedula;
+    
+    @Constraints.Required
     public String nombre;
     
     @Constraints.Required
@@ -33,6 +36,8 @@ public class Usuario extends Model {
     
     @Constraints.Required
     public String sexo;
+    
+    public String tipo;
     
     public String theme;
     
