@@ -2,6 +2,24 @@
 @import helper._
 @implicitFieldConstructor = @{ FieldConstructor(bootstrapTemplates.render) } 
 
+<script type="text/javascript">
+$(function () {
+	$("[rel=fecha]").datepicker({noOffset: true});
+});
+
+var radio = $.fn.button.prototype.constructor.Constructor.prototype.toggle;
+$.fn.button.prototype.constructor.Constructor.prototype.toggle = function(){
+    radio.apply(this);
+    var $parent = this.$element.parent('[data-toggle="buttons-radio"]')
+    var target = $parent ? $parent.data('target') : undefined;
+    var value = this.$element.attr('value');
+    if(target && value){
+        $('#'+target).val(value);
+    }
+}
+
+
+</script>
   
  		@inputText(formRegistros("cedula"), 
  			'_label -> "Cedula",
@@ -13,32 +31,40 @@
  		
  		@inputText(formRegistros("nombre"), 
  			'_label -> "Nombre",
+ 			'class -> "input-medium",
  			'required -> "required",
- 			'minlength -> "5",
- 			'maxlength -> "8"
+ 			'minlength -> "3",
+ 			'maxlength -> "15"
  		) 
  		
  		
  		@inputText(formRegistros("apellido"), 
- 			'_label -> "Apellido"
+ 			'_label -> "Apellido",
+ 			'class -> "input-medium",
+ 			'required -> "required",
+ 			'minlength -> "3",
+ 			'maxlength -> "15"
  		) 
       	
       	@inputText(formRegistros("fechaNac"), 
  			'_label -> "Fecha Nacimiento",
  			'class -> "input-small",
- 			'rel -> "fecha"
+ 			'rel -> "fecha",
+ 			'required -> "required"
  		)
  		
  		
  		@inputText(formRegistros("fechaReg"), 
  			'_label -> "Fecha Registro",
  			'class -> "input-small",
- 			'rel -> "fecha"
+ 			'rel -> "fecha",
+ 			'required -> "required"
  		)
  		
  		
  		@input(formRegistros("sexo"), 
-                '_label -> "Sexo"
+                '_label -> "Sexo",
+                'required -> "required"
         ) { (id, name, value, args) =>   
                 <input type="hidden" id="@id" name="@name" value="@value" @toHtmlArgs(args) />
                 <div class="btn-group" data-toggle="buttons-radio" data-target="sexo"> 
@@ -48,7 +74,8 @@
        }
  		
  		@input(formRegistros("nacionalidad"), 
-                '_label -> "Nacionalidad"
+                '_label -> "Nacionalidad",
+                'required -> "required"
         ) { (id, name, value, args) =>   
                 <input type="hidden" id="@id" name="@name" value="@value" @toHtmlArgs(args) />
                 <div class="btn-group" data-toggle="buttons-radio" data-target="nacionalidad"> 
@@ -59,14 +86,14 @@
             
             
 		@input(formRegistros("estadoCivil"), 
-                '_label -> "Nacionalidad"
+                '_label -> "Nacionalidad",
+                'required -> "required"
         ) { (id, name, value, args) =>   
                 <input type="hidden" id="@id" name="@name" value="@value" @toHtmlArgs(args) />
                 <div class="btn-group" data-toggle="buttons-radio" data-target="estadoCivil"> 
                     <button type="button" class="btn btn-inverse" data-toggle="button" value="Soltero">Soltero</button>                   
                     <button type="button" class="btn btn-inverse" data-toggle="button" value="Casado">Casado</button>
                     <button type="button" class="btn btn-inverse" data-toggle="button" value="Divorciado">Divorciado</button>
-                    <button type="button" class="btn btn-inverse" data-toggle="button" value="Concubinato">Concubinato</button>
                 </div>
         }
       	
@@ -74,23 +101,28 @@
 		@select(formRegistros("parroquias.id"), 
         	options(Parroquias.opciones), 
             '_label -> "Parroquia",
+            'required -> "required",
             '_default -> "-- Seleccione una Parroquia --"
         )
       	
       	@textarea(formRegistros("direccion"), 
  			'_label -> "Direccion",
+ 			'required -> "required",
  			'rows -> "3"
  		)
       	
       	@inputText(formRegistros("telefono"), 
  			'_label -> "Telefono",
-			'class -> "input-small"
+			'class -> "input-small",
+			'minlength -> "10",
+ 			'maxlength -> "11"
  		)
       	
       	
 		@inputText(formRegistros("ingresoMensual"), 
  			'_label -> "Ingreso Mensual",
-			'class -> "input-small"
+			'class -> "input-small",
+			'required -> "required"
  		)
       	
       	

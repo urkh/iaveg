@@ -23,21 +23,21 @@
         pattern = void 0;
       }
       if (required === true && value === '') {
-        error = validateName + ' is required';
+        error = validateName + ' es requerido';
       }
       if (error === false && pattern !== void 0) {
         if (value.search(new RegExp(pattern, 'g')) === -1) {
-          error = validateName + ' is invalid';
+          error = validateName + ' es invalido';
         }
       }
       if (error === false && minLength !== 0) {
         if (!(value.length >= minLength)) {
-          error = validateName + ' is too short';
+          error = validateName + ' es muy corto';
         }
       }
       if (error === false && maxLength !== false) {
         if (!(value.length <= maxLength)) {
-          error = validateName + ' is too long';
+          error = validateName + ' es muy largo';
         }
       }
       if (error !== false) {

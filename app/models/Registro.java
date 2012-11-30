@@ -57,7 +57,6 @@ public class Registro extends Model {
 	@Constraints.Required
 	public Double ingresoMensual;
 	
-	@Constraints.Required
 	public Integer hijos;
 	
 	
