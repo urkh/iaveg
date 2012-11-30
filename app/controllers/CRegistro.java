@@ -4,8 +4,8 @@ import models.Registro;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.formRegistros;
 import views.html.editarRegistros;
+import views.html.formRegistros;
 import views.html.listarRegistros;
 
 public class CRegistro extends Controller {
@@ -50,10 +50,6 @@ public class CRegistro extends Controller {
 	public static Result guardar(){
 		
 		Form<Registro> formCRegistro = form(Registro.class).bindFromRequest();
-		
-		if (formCRegistro.hasErrors()) {
-			return badRequest(formRegistros.render(formCRegistro));
-		}
 		
 		formCRegistro.get().save();
 		flash("exito", "El registro de solicitud se ha realizado exitosamente!");

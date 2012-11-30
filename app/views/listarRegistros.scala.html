@@ -1,5 +1,5 @@
 @(paginaActual: Page[Registro], currentSortBy: String, currentOrder: String, currentFilter: String)
-
+@import helper._
 
 @link(newPage:Int, newSortBy:String) = @{
     
@@ -149,8 +149,8 @@
 </div>
  
 
-
-<div id="formNuevo" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+<form data-validate="yes" href="@routes.CRegistro.guardar()">
+<div   data-validate="yes" id="formNuevo" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
 
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -159,8 +159,15 @@
      
 
 		<div class="modal-body form-horizontal"></div>
+		
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+        	<input type="submit" value="Guardar" class="btn btn-primary">
+    	</div>
 
 </div>
+
+</form>
         
 }
 
