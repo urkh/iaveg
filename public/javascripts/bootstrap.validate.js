@@ -10,7 +10,7 @@
     if ($field.attr('required') || value !== '') {
       validateName = $field.attr('data-validatename') || $field.attr('name') || 'This field';
       required = $field.attr('required') === 'required';
-      minLength = parseInt($field.attr('Dminlength'));
+      minLength = parseInt($field.attr('minlength'));
       if (isNaN(minLength)) {
         minLength = 0;
       }

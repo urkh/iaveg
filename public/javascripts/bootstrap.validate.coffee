@@ -8,7 +8,7 @@ validateTextField = ($field) ->
 
     required = $field.attr('required') is 'required'
 
-    minLength = parseInt($field.attr('Dminlength'))
+    minLength = parseInt($field.attr('minlength'))
     if isNaN minLength then minLength = 0
 
     maxLength = parseInt($field.attr('maxlength'))
