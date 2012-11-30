@@ -1,0 +1,75 @@
+@(formUsuarios: Form[Usuario])
+@import helper._
+@implicitFieldConstructor = @{ FieldConstructor(bootstrapTemplates.render) } 
+
+<script type="text/javascript">
+
+var radio = $.fn.button.prototype.constructor.Constructor.prototype.toggle;
+$.fn.button.prototype.constructor.Constructor.prototype.toggle = function(){
+    radio.apply(this);
+    var $parent = this.$element.parent('[data-toggle="buttons-radio"]')
+    var target = $parent ? $parent.data('target') : undefined;
+    var value = this.$element.attr('value');
+    if(target && value){
+        $('#'+target).val(value);
+    }
+}
+
+
+</script>
+  
+ 		@inputText(formUsuarios("cedula"), 
+ 			'_label -> "Cedula",
+ 			'class -> "input-small",
+ 			'required -> "required",
+ 			'minlength -> "5",
+ 			'maxlength -> "8"
+ 		)  
+ 		
+ 		@inputText(formUsuarios("nombre"), 
+ 			'_label -> "Nombre",
+ 			'class -> "input-medium",
+ 			'required -> "required",
+ 			'minlength -> "3",
+ 			'maxlength -> "15"
+ 		) 
+ 		
+ 		
+ 		@inputText(formUsuarios("apellido"), 
+ 			'_label -> "Apellido",
+ 			'class -> "input-medium",
+ 			'required -> "required",
+ 			'minlength -> "3",
+ 			'maxlength -> "15"
+ 		) 
+      	
+
+ 		
+ 		@input(formUsuarios("sexo"), 
+                '_label -> "Sexo",
+                'required -> "required"
+        ) { (id, name, value, args) =>   
+                <input type="hidden" id="@id" name="@name" value="@value" @toHtmlArgs(args) />
+                <div class="btn-group" data-toggle="buttons-radio" data-target="sexo"> 
+                    <button type="button" class="btn btn-inverse data-toggle="button" value="Masculino">Masculino</button>                   
+                    <button type="button" class="btn btn-inverse data-toggle="button" value="Ninguno">Ninguno</button>
+                </div>
+       }
+
+      @inputText(formUsuarios("usuario"), 
+ 			'_label -> "Usuario",
+ 			'class -> "input-medium",
+ 			'required -> "required",
+ 			'minlength -> "4",
+ 			'maxlength -> "10"
+ 		) 
+            
+            
+        @inputPassword(formUsuarios("contrasena"), 
+ 			'_label -> "Contrasena",
+ 			'class -> "input-medium",
+ 			'required -> "required",
+ 			'minlength -> "6",
+ 			'maxlength -> "12"
+ 		) 
+ 

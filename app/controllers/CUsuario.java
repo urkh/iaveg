@@ -7,6 +7,7 @@ import play.mvc.Result;
 import play.mvc.Security;
 import views.html.editarUsuarios;
 import views.html.listarUsuarios;
+import views.html.formUsuario;
 
 
 @Security.Authenticated(Seguridad.class)
@@ -18,6 +19,11 @@ public class CUsuario extends Controller {
 	public static Result listar(int pagina, String ordenarPor, String orden, String filtro){
 		return ok(listarUsuarios.render(Usuario.pagina(pagina, 10, ordenarPor, orden, filtro), ordenarPor, orden, filtro));
 		
+	}
+	
+	public static Result nuevo() {
+		Form<Usuario> formCUsuario = form(Usuario.class);
+		return ok(formUsuario.render(formCUsuario));
 	}
 	
 	public static Result editar(String usuario){

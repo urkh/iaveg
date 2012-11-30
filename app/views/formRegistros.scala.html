@@ -111,18 +111,21 @@ $.fn.button.prototype.constructor.Constructor.prototype.toggle = function(){
  			'rows -> "3"
  		)
       	
-      	@inputText(formRegistros("telefono"), 
- 			'_label -> "Telefono",
-			'class -> "input-small",
-			'minlength -> "10",
- 			'maxlength -> "11"
- 		)
+      	
       	
       	
 		@inputText(formRegistros("ingresoMensual"), 
  			'_label -> "Ingreso Mensual",
 			'class -> "input-small",
 			'required -> "required"
+ 		)
+ 		
+ 		
+ 		@inputText(formRegistros("telefono"), 
+ 			'_label -> "Telefono",
+			'class -> "input-small",
+			'minlength -> "10",
+ 			'maxlength -> "11"
  		)
       	
       	
@@ -133,6 +136,3 @@ $.fn.button.prototype.constructor.Constructor.prototype.toggle = function(){
       			
             
  
-       
- 		
-        

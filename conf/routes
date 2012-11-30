@@ -35,6 +35,7 @@ POST    /registro/:id              		controllers.CRegistro.actualizar(id:Long)
 
 
 # CRUD usuarios
+GET		/usuarios/nuevo					controllers.CUsuario.nuevo()
 POST	/usuarios						controllers.CUsuario.guardar()
 GET     /usuarios                 		controllers.CUsuario.listar(p:Int ?= 0, s ?= "usuario", o ?= "asc", busqueda ?= "")
 GET		/usuarios/:usuario				controllers.CUsuario.editar(usuario:String)
