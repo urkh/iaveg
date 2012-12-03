@@ -56,10 +56,15 @@
  
         </div>
         </form>
-        
-        <a data-target="#formNuevo" data-toggle="modal" rel="tooltip" data-placement="left" title="Agregar una Parroquia" class="btn btn-success" id="add" href="@routes.CParroquias.nuevo()">Nueva</a>
-        
-    </div>
+
+<div id="add">
+
+	<a data-target="#formNuevo" data-toggle="modal" rel="tooltip" data-placement="top" title="Agregar una Parroquia" class="btn btn-success" href="@routes.CParroquias.nuevo()"><i class="icon-plus-sign icon-white"></i> Parroquia</a>
+
+	<a data-target="#formNuevoM" data-toggle="modal" rel="tooltip" data-placement="top" title="Agregar un Municipio" class="btn btn-danger" href="@routes.CMunicipios.nuevo()"><i class="icon-plus-sign icon-white"></i> Municipio</a>
+</div>
+
+</div>
     
     @if(paginaActual.getTotalRowCount == 0) {
         
@@ -122,7 +127,9 @@
         </div>
         
     }
-    
+
+
+<form data-validate="yes" action="@routes.CParroquias.actualizar()" method="POST">    
 <div id="formEditar" class="modal fade hide" tabindex="-1" role="dialog" aria-hidden="true" >
 
 	<div class="modal-header">
@@ -130,12 +137,19 @@
 		<h3 id="myModalLabel">Editar Parroquia</h3>
 	</div>
 
-	<div class="modal-body"></div>
+	<div class="modal-body form-horizontal"></div>
+
+	 <div class="modal-footer">
+		<button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+        	<input type="submit" value="Guardar" class="btn btn-primary">
+    	</div>
+
+	
 
 </div>
+</form>
 
-
-
+<form data-validate="yes" action="@routes.CParroquias.guardar()" method="POST">
 <div id="formNuevo" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
 
 	<div class="modal-header">
@@ -145,7 +159,34 @@
      
 	<div class="modal-body form-horizontal"></div>
 
+
+	<div class="modal-footer">
+		<button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+        	<input type="submit" value="Guardar" class="btn btn-primary">
+    	</div>
+
 </div>
+</form>
+
+
+<form data-validate="yes" action="@routes.CMunicipios.guardar()" method="POST">
+<div id="formNuevoM" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3>Nuevo Municipio</h3>
+	</div>
+     
+	<div class="modal-body form-horizontal"></div>
+
+
+	<div class="modal-footer">
+		<button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+        	<input type="submit" value="Guardar" class="btn btn-primary">
+    	</div>
+
+</div>
+</form>
     
     
         

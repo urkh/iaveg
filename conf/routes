@@ -3,7 +3,7 @@
 # ~~~~
 
 # Home page
-GET     /                         		controllers.CParroquias.index()
+GET     /                         	controllers.CParroquias.index()
 
 # Validar usuarios
 GET     /login                          controllers.LoginU.login()
@@ -16,7 +16,7 @@ GET     /parroquias/nuevo              	controllers.CParroquias.nuevo()
 POST    /parroquias                  	controllers.CParroquias.guardar()
 GET     /parroquias                 	controllers.CParroquias.listar(p:Int ?= 0, s ?= "parroquia", o ?= "asc", busqueda ?= "")
 GET     /parroquias/:id              	controllers.CParroquias.editar(id:Long)
-POST    /parroquias/:id              	controllers.CParroquias.actualizar(id:Long)
+POST    /parroquias/actualizar              	controllers.CParroquias.actualizar()
 
 
 # CRUD municipios
@@ -26,21 +26,21 @@ POST    /municipios                  	controllers.CMunicipios.guardar()
 
 # CRUD registro
 GET     /registro/nuevo              	controllers.CRegistro.nuevo()
-POST    /registro                  		controllers.CRegistro.guardar()
-GET     /registro                 		controllers.CRegistro.listar(p:Int ?= 0, s ?= "cedula", o ?= "asc", busqueda ?= "")
-GET     /registro/:id              		controllers.CRegistro.editar(id:Long)
-POST    /registro/:id              		controllers.CRegistro.actualizar(id:Long)
+POST    /registro                  	controllers.CRegistro.guardar()
+GET     /registro                 	controllers.CRegistro.listar(p:Int ?= 0, s ?= "cedula", o ?= "asc", busqueda ?= "")
+GET     /registro/:id              	controllers.CRegistro.editar(id:Long)
+POST    /registro/actualizar              	controllers.CRegistro.actualizar()
 
 
 
 
 # CRUD usuarios
-GET		/usuarios/nuevo					controllers.CUsuario.nuevo()
-POST	/usuarios						controllers.CUsuario.guardar()
-GET     /usuarios                 		controllers.CUsuario.listar(p:Int ?= 0, s ?= "usuario", o ?= "asc", busqueda ?= "")
-GET		/usuarios/:usuario				controllers.CUsuario.editar(usuario:String)
-POST	/usuarios/:usuario				controllers.CUsuario.actualizar(usuario:String)
-POST    /usuarios/:usuario/borrar		controllers.CUsuario.borrar(usuario:String)
+GET	/usuarios/nuevo			controllers.CUsuario.nuevo()
+POST	/usuarios			controllers.CUsuario.guardar()
+GET     /usuarios                 	controllers.CUsuario.listar(p:Int ?= 0, s ?= "usuario", o ?= "asc", busqueda ?= "")
+GET	/usuarios/:id		controllers.CUsuario.editar(id:Long)
+POST	/usuarios/actualizar		controllers.CUsuario.actualizar()
+POST    /usuarios/:usuario/borrar	controllers.CUsuario.borrar(usuario:String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

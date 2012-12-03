@@ -6,7 +6,6 @@ import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
-import views.html.editarParroquias;
 import views.html.formParroquias;
 import views.html.listarParroquias;
 
@@ -28,15 +27,15 @@ public class CParroquias extends Controller {
 	
 	public static Result editar(Long id){
 		Form<Parroquias> formCParroquias = form(Parroquias.class).fill(Parroquias.buscar.byId(id));
-		return ok(editarParroquias.render(id, formCParroquias));
+		return ok(formParroquias.render(formCParroquias));
 	}
 	
-	public static Result actualizar(Long id){
+	public static Result actualizar(){
 		Form<Parroquias> formCParroquias = form(Parroquias.class).bindFromRequest();
-		if(formCParroquias.hasErrors()){
-			return badRequest(editarParroquias.render(id, formCParroquias));
-		}
+
+		String ids = formCParroquias.field("id").value();
 		
+		Long id = Long.parseLong(ids);
 		formCParroquias.get().update(id);
 		flash("exito", "La Parroquia " + formCParroquias.get().parroquia + " ha sido actualizada con exito");
 		return Inicio;
@@ -52,10 +51,6 @@ public class CParroquias extends Controller {
 	public static Result guardar(){
 		
 		Form<Parroquias> formCParroquias = form(Parroquias.class).bindFromRequest();
-		
-		if (formCParroquias.hasErrors()) {
-			return badRequest(formParroquias.render(formCParroquias));
-		}
 		
 		formCParroquias.get().save();
 		flash("exito", "Parroquia " + formCParroquias.get().parroquia + "guardada exitosamente!");

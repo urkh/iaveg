@@ -18,6 +18,8 @@ import com.avaje.ebean.Page;
 public class Usuario extends Model {
 
     @Id
+    public Long id;
+    
     @Constraints.Required
     @Formats.NonEmpty
     public String usuario;

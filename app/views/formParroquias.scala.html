@@ -1,46 +1,29 @@
 @(formCParroquias: Form[Parroquias])
 @import helper._
+@implicitFieldConstructor = @{ FieldConstructor(bootstrapTemplates.render) } 
 
-
-   		<script src="@routes.Assets.at("javascripts/jquery-1.8.1.min.js")"></script>
-        <script src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
-
-
-    
-    @form(routes.CParroquias.guardar()){
-    
-    
-     @if(flash.containsKey("error")) {
-        
-            <div class="alert alert-error">
-                <strong>Error!</strong> @flash.get("error")
-            </div>
-        }   
-
-        
-        <div class="control-group">
-        	<label class="control-label">Parroquia</label>
-        	<div class="controls">
+	@defining(formCParroquias("id")) { uidField =>
+		<input type="hidden" name="@uidField.name" id="@uidField.id" value="@uidField.value">
+	}
+  
         @select(formCParroquias("municipios.id"), 
                 options(Municipios.opciones), 
+		'_label -> "Municipio",
+ 		'required -> "required",
                 '_default -> "-- Seleccione un Municipio --",
                 '_showConstraints -> false
-            )
-          </div>
-      	</div>
-        
-        <div class="control-group">
-        	<label class="control-label">Parroquia</label>
-        	<div class="controls">
-          		<input  name="parroquia" type="text">
-        	</div>
-      	</div>
-           
-           
-			<div class="modal-footer">
-				<button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
-        		<input type="submit" value="Guardar" class="btn btn-primary">
-    		</div>
+        )
 
-    
-}
+
+	@inputText(formCParroquias("parroquia"), 
+ 		'_label -> "Parroquia",
+ 		'class -> "input-medium",
+ 		'required -> "required",
+ 		'minlength -> "4",
+ 		'maxlength -> "30"
+ 	)  
+
+           
+           
+			
+

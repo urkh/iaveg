@@ -17,6 +17,11 @@ $.fn.button.prototype.constructor.Constructor.prototype.toggle = function(){
 
 
 </script>
+
+
+@defining(formUsuarios("id")) { uidField =>
+		<input type="hidden" name="@uidField.name" id="@uidField.id" value="@uidField.value">
+	}
   
  		@inputText(formUsuarios("cedula"), 
  			'_label -> "Cedula",

@@ -5,7 +5,6 @@ import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
-import views.html.editarUsuarios;
 import views.html.listarUsuarios;
 import views.html.formUsuario;
 
@@ -26,22 +25,19 @@ public class CUsuario extends Controller {
 		return ok(formUsuario.render(formCUsuario));
 	}
 	
-	public static Result editar(String usuario){
-		Form<Usuario> formCUsuario = form(Usuario.class).fill(Usuario.buscar.ref(usuario));
-		return ok(editarUsuarios.render(usuario, formCUsuario));
+	public static Result editar(Long id){
+		Form<Usuario> formCUsuario = form(Usuario.class).fill(Usuario.buscar2.byId(id));
+		return ok(formUsuario.render(formCUsuario));
 	}
 	
-	public static Result actualizar(String usuario){
+	public static Result actualizar(){
 		Form<Usuario> formCUsuario = form(Usuario.class).bindFromRequest();
 		
-		if(formCUsuario.hasErrors()){
-			return badRequest(editarUsuarios.render(usuario, formCUsuario));
-		}
+		String ids = formCUsuario.field("id").value();
 		
-		Usuario usu = formCUsuario.get();
-
-		usu.usuario = usuario;
-		usu.update();
+		Long id = Long.parseLong(ids);
+		formCUsuario.get().update(id);
+		
 		flash("exito", "El usuario " + formCUsuario.get().usuario + " ha sido actualizada con exito");
 		
 		return Inicio;

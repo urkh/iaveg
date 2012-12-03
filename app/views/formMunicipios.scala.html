@@ -2,26 +2,16 @@
 @import helper._
 
 @implicitFieldConstructor = @{ FieldConstructor(bootstrapTemplates.render) } 
-
-@main {
-
    
-    <h1>Agregar Municipio</h1>
-    
-    @form(routes.CMunicipios.guardar()){
-        
-        <fieldset>
-        
+
+
             @inputText(formCMunicipios("municipio"), 
-            '_label -> "Municipio")           
+            	'_label -> "Municipio",
+		'required -> "required",
+            	'minlength -> "4",
+ 	    	'maxlength -> "30"
+	    )           
            
 
-        </fieldset>
-        
-        <div class="actions">
-            <input type="submit" value="Guardar" class="btn btn-primary">
-        </div>
-        
-    }
-    
-}
+
+

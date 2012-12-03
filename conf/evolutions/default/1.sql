@@ -4,27 +4,27 @@
 # --- !Ups
 
 create table municipios (
-  id                        bigint auto_increment not null,
+  id                        bigint not null,
   municipio                 varchar(255),
   constraint pk_municipios primary key (id))
 ;
 
 create table parroquias (
-  id                        bigint auto_increment not null,
+  id                        bigint not null,
   municipios_id             bigint,
   parroquia                 varchar(255),
   constraint pk_parroquias primary key (id))
 ;
 
 create table registro (
-  id                        bigint auto_increment not null,
+  id                        bigint not null,
   parroquias_id             bigint,
   cedula                    integer,
   nombre                    varchar(255),
   apellido                  varchar(255),
   telefono                  varchar(255),
-  fecha_nac                 datetime,
-  fecha_reg                 datetime,
+  fecha_nac                 timestamp,
+  fecha_reg                 timestamp,
   nacionalidad              varchar(255),
   estado_civil              varchar(255),
   direccion                 varchar(255),
@@ -35,39 +35,40 @@ create table registro (
 ;
 
 create table registro_conyugue (
-  id                        bigint auto_increment not null,
+  id                        bigint not null,
   registro_id               bigint,
   cedula                    integer,
   nombres                   varchar(255),
   apellidos                 varchar(255),
-  fecha_nac                 datetime,
+  fecha_nac                 timestamp,
   nacionalidad              varchar(255),
   sexo                      varchar(255),
   constraint pk_registro_conyugue primary key (id))
 ;
 
 create table solicitud (
-  id                        integer auto_increment not null,
+  id                        integer not null,
   registro_id               bigint,
   solicitud_id              integer,
   codigo                    varchar(255),
-  lph                       tinyint(1) default 0,
+  lph                       boolean,
   tenencia                  varchar(255),
   estado_sol                varchar(255),
-  doc_completa              tinyint(1) default 0,
+  doc_completa              boolean,
   observacion               varchar(255),
   constraint pk_solicitud primary key (id))
 ;
 
 create table tipo_solicitudes (
-  id                        integer auto_increment not null,
+  id                        integer not null,
   solicitud                 varchar(255),
   codigo                    varchar(255),
   constraint pk_tipo_solicitudes primary key (id))
 ;
 
 create table usuarios (
-  usuario                   varchar(255) not null,
+  id                        bigint not null,
+  usuario                   varchar(255),
   contrasena                varchar(255),
   cedula                    integer,
   nombre                    varchar(255),
@@ -75,8 +76,22 @@ create table usuarios (
   sexo                      varchar(255),
   tipo                      varchar(255),
   theme                     varchar(255),
-  constraint pk_usuarios primary key (usuario))
+  constraint pk_usuarios primary key (id))
 ;
+
+create sequence municipios_seq;
+
+create sequence parroquias_seq;
+
+create sequence registro_seq;
+
+create sequence registro_conyugue_seq;
+
+create sequence solicitud_seq;
+
+create sequence tipo_solicitudes_seq;
+
+create sequence usuarios_seq;
 
 alter table parroquias add constraint fk_parroquias_municipios_1 foreign key (municipios_id) references municipios (id) on delete restrict on update restrict;
 create index ix_parroquias_municipios_1 on parroquias (municipios_id);
@@ -93,21 +108,35 @@ create index ix_solicitud_solicitud_5 on solicitud (solicitud_id);
 
 # --- !Downs
 
-SET FOREIGN_KEY_CHECKS=0;
+SET REFERENTIAL_INTEGRITY FALSE;
 
-drop table municipios;
+drop table if exists municipios;
 
-drop table parroquias;
+drop table if exists parroquias;
 
-drop table registro;
+drop table if exists registro;
 
-drop table registro_conyugue;
+drop table if exists registro_conyugue;
 
-drop table solicitud;
+drop table if exists solicitud;
 
-drop table tipo_solicitudes;
+drop table if exists tipo_solicitudes;
 
-drop table usuarios;
+drop table if exists usuarios;
 
-SET FOREIGN_KEY_CHECKS=1;
+SET REFERENTIAL_INTEGRITY TRUE;
+
+drop sequence if exists municipios_seq;
+
+drop sequence if exists parroquias_seq;
+
+drop sequence if exists registro_seq;
+
+drop sequence if exists registro_conyugue_seq;
+
+drop sequence if exists solicitud_seq;
+
+drop sequence if exists tipo_solicitudes_seq;
+
+drop sequence if exists usuarios_seq;
 

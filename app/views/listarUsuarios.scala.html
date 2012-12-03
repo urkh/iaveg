@@ -97,7 +97,7 @@
                 @for(usuarios <- paginaActual.getList) {
                     <tr>
                         <td>
-                        <a data-target="#formEditar" data-toggle="modal" href="@routes.CUsuario.editar(usuarios.usuario)" rel="tooltip" data-placement="right" title="Editar -> @usuarios.usuario">@usuarios.usuario</a>
+                        <a data-target="#formEditar" data-toggle="modal" href="@routes.CUsuario.editar(usuarios.id)" rel="tooltip" data-placement="right" title="Editar -> @usuarios.usuario">@usuarios.usuario</a>
                      
                         </td>
                         
@@ -147,7 +147,7 @@
     }
     
 
-
+<form data-validate="yes" action="@routes.CUsuario.actualizar()" method="POST"> 
 <div id="formEditar" class="modal fade hide" tabindex="-1" role="dialog" aria-hidden="true" >
 
 	<div class="modal-header">
@@ -155,10 +155,15 @@
 		<h3 id="myModalLabel">Editar Usuario</h3>
 	</div>
 
-	<div class="modal-body"></div>
+	<div class="modal-body form-horizontal"></div>
+
+	 <div class="modal-footer">
+		<button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+        	<input type="submit" value="Guardar" class="btn btn-primary">
+    	</div>
 
 </div>
- 
+</form>
 
 <form data-validate="yes" action="@routes.CUsuario.guardar()" method="POST">
 <div id="formNuevo" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">

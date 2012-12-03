@@ -23,14 +23,10 @@ public class CMunicipios extends Controller {
 	
 	public static Result guardar(){
 		
-		Form<Municipios> formCMunicipios = form(Municipios.class).bindFromRequest();
-		
-		if (formCMunicipios.hasErrors()) {
-			return badRequest(formMunicipios.render(formCMunicipios));
-		}
+		Form<Municipios> formCMunicipios = form(Municipios.class).bindFromRequest();		
 		
 		formCMunicipios.get().save();
-		flash("exito", "Municipio " + formCMunicipios.get().municipio + "guardada exitosamente!");
+		flash("exito", "Municipio " + formCMunicipios.get().municipio + " guardado exitosamente!");
 		return Inicio;
 		
 	}
