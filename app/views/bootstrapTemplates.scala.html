@@ -3,24 +3,6 @@
 @**************************************************
 * Generate input according twitter bootsrap rules *
 **************************************************@
-	<link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/united.min.css")"> 
-    <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/bootstrap-datepicker.css")">
-    <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.validate.css")">
-	<script src="@routes.Assets.at("javascripts/jquery-1.8.1.min.js")"></script>
-	<script src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
-	<script src="@routes.Assets.at("javascripts/bootstrap-datepicker.js")"></script>
-	<script src="@routes.Assets.at("javascripts/bootstrap.validate.js")"></script>
-
-
-
-
-<script>
- 
-	
-    $('form[data-novalidate=yes]').bootstrapValidate();
-
-    
-</script>
 
 <div class="control-group @if(elements.hasErrors) {error}">
 	<label class="control-label" for="@elements.id">@elements.label</label>

@@ -1,0 +1,20 @@
+@(formTipoSolicitudes: Form[TipoSolicitudes])
+@import helper._
+@implicitFieldConstructor = @{ FieldConstructor(bootstrapTemplates.render) } 
+   
+		@defining(formTipoSolicitudes("id")) { uidField =>
+			<input type="hidden" name="@uidField.name" id="@uidField.id" value="@uidField.value">
+		}
+
+		@inputText(formTipoSolicitudes("codigo"), 
+            '_label -> "Codigo",
+			'required -> "required",
+ 	    	'maxlength -> "30"
+	    )
+
+        @inputText(formTipoSolicitudes("solicitud"), 
+            '_label -> "Nombre",
+			'required -> "required",
+ 	    	'maxlength -> "30"
+	    )           
+           

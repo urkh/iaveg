@@ -1,0 +1,116 @@
+@(formSolicitud: Form[Solicitud])
+@import helper._
+@implicitFieldConstructor = @{ FieldConstructor(bootstrapTemplates.render) } 
+
+@titulo = {
+    Nueva Solicitud
+}
+
+
+@main(titulo, nav = "Solicitud"){
+
+
+ <form class="form-horizontal" data-validate="yes" method="POST">   
+        
+        
+        <legend>Datos de la Solicitud</legend>
+
+		@defining(formSolicitud("id")) { uidField =>
+			<input type="hidden" name="@uidField.name" id="@uidField.id" value="@uidField.value">
+		}
+  
+ 		@inputText(formSolicitud("codigo"), 
+ 			'_label -> "Codigo",
+ 			'class -> "input-small",
+ 			'required -> "required",
+            Symbol("data-minlength") -> "5",
+ 			'maxlength -> "8"
+ 		)  
+
+        @select(formSolicitud("tipoSolicitudes.id"), 
+            options(TipoSolicitudes.opciones), 
+            '_label -> "Solicitud",
+            'required -> "required",
+            '_default -> "-- Seleccione una Solicitud --",
+            '_showConstraints -> false
+        )
+
+
+        @input(formSolicitud("lph"), 
+                '_label -> "LPH",
+                'required -> "required"
+        ) { (id, name, value, args) =>   
+                <input type="hidden" id="@id" name="@name" value="@value" @toHtmlArgs(args) />
+                <div class="btn-group" data-toggle="buttons-radio" data-target="lph"> 
+                     <button type="button" class="btn btn-inverse @if(formSolicitud("lph").value == "true"){active}" data-toggle="button" value="true">Si</button>                   
+                    <button type="button" class="btn btn-inverse @if(formSolicitud("lph").value == "false"){active}" data-toggle="button" value="false">No</button>
+                </div>
+       }
+
+        @input(formSolicitud("tenencia"), 
+                '_label -> "Tenencia",
+                'required -> "required"
+        ) { (id, name, value, args) =>   
+                <input type="hidden" id="@id" name="@name" value="@value" @toHtmlArgs(args) />
+                <div class="btn-group" data-toggle="buttons-radio" data-target="tenencia"> 
+                     <button type="button" class="btn btn-inverse @if(formSolicitud("tenencia").value == "Propia"){active}" data-toggle="button" value="Propia">Propia</button>                   
+                    <button type="button" class="btn btn-inverse @if(formSolicitud("tenencia").value == "Alquilada"){active}" data-toggle="button" value="Alquilada">Alquilada</button>
+                </div>
+       }
+ 		
+ 		@input(formSolicitud("estadoSol"), 
+                '_label -> "Estado",
+                'required -> "required"
+        ) { (id, name, value, args) =>   
+                <input type="hidden" id="@id" name="@name" value="@value" @toHtmlArgs(args) />
+                <div class="btn-group" data-toggle="buttons-radio" data-target="estadoSol"> 
+                     <button type="button" class="btn btn-inverse @if(formSolicitud("estadoSol").value == "Aprobada"){active}" data-toggle="button" value="Aprobada">Aprobada</button>                   
+                    <button type="button" class="btn btn-inverse @if(formSolicitud("estadoSol").value == "No Aprobada"){active}" data-toggle="button" value="No Aprobada">No Aprobada</button>
+                </div>
+       }
+
+        @input(formSolicitud("docCompleta"), 
+                '_label -> "Documentacion",
+                'required -> "required"
+        ) { (id, name, value, args) =>   
+                <input type="hidden" id="@id" name="@name" value="@value" @toHtmlArgs(args) />
+                <div class="btn-group" data-toggle="buttons-radio" data-target="docCompleta"> 
+                     <button type="button" class="btn btn-inverse @if(formSolicitud("docCompleta").value == "true"){active}" data-toggle="button" value="true">Completa</button>                   
+                    <button type="button" class="btn btn-inverse @if(formSolicitud("docCompleta").value == "false"){active}" data-toggle="button" value="false">Incompleta</button>
+                </div>
+       }
+ 		
+ 		
+      	
+      	@textarea(formSolicitud("observacion"), 
+ 			'_label -> "Observacion",
+ 			'rows -> "3"
+ 		)
+
+</form>
+
+
+<script type="text/javascript">
+
+
+$(function () {
+    $("[rel=fecha]").datepicker({noOffset: true});
+});
+
+var radio = $.fn.button.prototype.constructor.Constructor.prototype.toggle;
+$.fn.button.prototype.constructor.Constructor.prototype.toggle = function(){
+    radio.apply(this);
+    var $parent = this.$element.parent('[data-toggle="buttons-radio"]')
+    var target = $parent ? $parent.data('target') : undefined;
+    var value = this.$element.attr('value');
+    if(target && value){
+        $('#'+target).val(value);
+    }
+}                
+        
+</script>
+
+ 
+}
+
+

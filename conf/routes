@@ -3,7 +3,7 @@
 # ~~~~
 
 # Home page
-GET     /                         	controllers.CParroquias.index()
+GET     /                         		controllers.CRegistro.index()
 
 # Validar usuarios
 GET     /login                          controllers.LoginU.login()
@@ -16,7 +16,7 @@ GET     /parroquias/nuevo              	controllers.CParroquias.nuevo()
 POST    /parroquias                  	controllers.CParroquias.guardar()
 GET     /parroquias                 	controllers.CParroquias.listar(p:Int ?= 0, s ?= "parroquia", o ?= "asc", busqueda ?= "")
 GET     /parroquias/:id              	controllers.CParroquias.editar(id:Long)
-POST    /parroquias/actualizar              	controllers.CParroquias.actualizar()
+POST    /parroquias/actualizar          controllers.CParroquias.actualizar()
 
 
 # CRUD municipios
@@ -26,22 +26,37 @@ POST    /municipios                  	controllers.CMunicipios.guardar()
 
 # CRUD registro
 GET     /registro/nuevo              	controllers.CRegistro.nuevo()
-POST    /registro                  	controllers.CRegistro.guardar()
-GET     /registro                 	controllers.CRegistro.listar(p:Int ?= 0, s ?= "cedula", o ?= "asc", busqueda ?= "")
-GET     /registro/:id              	controllers.CRegistro.editar(id:Long)
-POST    /registro/actualizar              	controllers.CRegistro.actualizar()
+POST    /registro                  		controllers.CRegistro.guardar()
+GET     /registro                 		controllers.CRegistro.listar(p:Int ?= 0, s ?= "cedula", o ?= "asc", busqueda ?= "")
+GET     /registro/:id              		controllers.CRegistro.editar(id:Long)
+POST    /registro/actualizar            controllers.CRegistro.actualizar()
 
+
+
+# CRUD tipoSol
+GET     /tipoSol/nuevo              	controllers.CTSolicitud.nuevo()
+POST    /tipoSol                  		controllers.CTSolicitud.guardar()
+GET     /tipoSol                 		controllers.CTSolicitud.listar(p:Int ?= 0, s ?= "solicitud", o ?= "asc", busqueda ?= "")
+GET     /tipoSol/:id              		controllers.CTSolicitud.editar(id:Long)
+POST    /tipoSol/actualizar            	controllers.CTSolicitud.actualizar()
+
+# CRUD solicitudes
+GET     /solicitudes/nuevo            	controllers.CSolicitud.nuevo()
+POST    /solicitudes              		controllers.CSolicitud.guardar()
+GET     /solicitudes               		controllers.CSolicitud.listar(p:Int ?= 0, s ?= "solicitud", o ?= "asc", busqueda ?= "")
+GET     /solicitudes/:id           		controllers.CSolicitud.editar(id:Long)
+POST    /solicitudes/actualizar        	controllers.CSolicitud.actualizar()
 
 
 
 # CRUD usuarios
-GET	/usuarios/nuevo			controllers.CUsuario.nuevo()
-POST	/usuarios			controllers.CUsuario.guardar()
-GET     /usuarios                 	controllers.CUsuario.listar(p:Int ?= 0, s ?= "usuario", o ?= "asc", busqueda ?= "")
-GET	/usuarios/:id		controllers.CUsuario.editar(id:Long)
-POST	/usuarios/actualizar		controllers.CUsuario.actualizar()
-POST    /usuarios/:usuario/borrar	controllers.CUsuario.borrar(usuario:String)
+GET		/usuarios/nuevo					controllers.CUsuario.nuevo()
+POST	/usuarios						controllers.CUsuario.guardar()
+GET    	/usuarios                 		controllers.CUsuario.listar(p:Int ?= 0, s ?= "usuario", o ?= "asc", busqueda ?= "")
+GET		/usuarios/:id					controllers.CUsuario.editar(id:Long)
+POST	/usuarios/actualizar			controllers.CUsuario.actualizar()
+POST    /usuarios/:usuario/borrar		controllers.CUsuario.borrar(usuario:String)
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET     /assets/*file               	controllers.Assets.at(path="/public", file)
 

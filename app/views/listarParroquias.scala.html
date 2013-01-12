@@ -23,6 +23,10 @@
     
 }
 
+@titulo = {
+    Parroquias
+}
+
 
 @header(key:String, title:String) = {
     <th class="@key.replace(".","_") header @if(currentSortBy == key) @{if(currentOrder == "asc") "headerSortDown" else "headerSortUp"}">
@@ -30,9 +34,10 @@
     </th>
 }
 
-@main {
+@main(titulo, nav = "parroquias") {
 
     <script>
+    
         $(function () {
             $("[rel=tooltip]").tooltip();
         });
@@ -127,6 +132,7 @@
         </div>
         
     }
+    
 
 
 <form data-validate="yes" action="@routes.CParroquias.actualizar()" method="POST">    

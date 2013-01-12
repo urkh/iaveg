@@ -1,17 +1,11 @@
-@(formCMunicipios: Form[Municipios])
+@(formMunicipios: Form[Municipios])
 @import helper._
 
 @implicitFieldConstructor = @{ FieldConstructor(bootstrapTemplates.render) } 
    
-
-
-            @inputText(formCMunicipios("municipio"), 
-            	'_label -> "Municipio",
-		'required -> "required",
-            	'minlength -> "4",
+        @inputText(formMunicipios("municipio"), 
+            '_label -> "Municipio",
+			'required -> "required",
  	    	'maxlength -> "30"
 	    )           
            
-
-
-

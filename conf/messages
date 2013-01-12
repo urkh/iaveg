@@ -6,4 +6,8 @@ usuarios.listar.titulo={0,choice,0#No hay resultados|1#1 Resultado|1<{0,number,i
 
 registros.listar.titulo={0,choice,0#No hay resultados|1#1 Resultado|1<{0,number,integer} resultados} encontrados
 
+tipoSol.listar.titulo={0,choice,0#No hay resultados|1#1 Resultado|1<{0,number,integer} resultados} encontrados
+
+solicitudes.listar.titulo={0,choice,0#No hay resultados|1#1 Resultado|1<{0,number,integer} resultados} encontrados
+
 

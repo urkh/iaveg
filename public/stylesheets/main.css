@@ -41,3 +41,28 @@ header h1 {
 }
 
 
+
+
+
+
+
+
+.conyugue {
+    margin-left: 32px;
+}
+
+.conyugue:first-child > .danger {
+    display: none;
+}
+
+
+
+
+.manage {
+    margin-left: 32px;
+    margin-bottom: 20px;
+}
+
+.conyugue_template {
+    display: none;
+}

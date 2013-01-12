@@ -16,7 +16,7 @@ public class LoginU extends Controller {
         public String contrasena;
         
         public String validar() {
-            if(Usuario.authenticate(usuario, contrasena) == null) {
+            if(Usuario.autenticar(usuario, contrasena) == null) {
                 return "Usuario o contrasena invalida";
             }
             return null;
@@ -37,7 +37,7 @@ public class LoginU extends Controller {
             return badRequest(formLogin.render(formCLogin));
         } else {
             session("usuario", formCLogin.get().usuario);
-            return redirect(routes.CParroquias.index());
+            return redirect(routes.CRegistro.index());
         }
     }
 

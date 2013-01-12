@@ -61,7 +61,7 @@ public class Usuario extends Model {
     }
     
 
-    public static Usuario authenticate(String usuario, String contrasena) {
+    public static Usuario autenticar(String usuario, String contrasena) {
         return buscar.where().eq("usuario", usuario).eq("contrasena", contrasena).findUnique();
     }
     

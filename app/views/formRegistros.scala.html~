@@ -3,6 +3,94 @@
 @implicitFieldConstructor = @{ FieldConstructor(bootstrapTemplates.render) } 
 
 
+
+<script type="text/javascript">
+$(function () {
+	$("[rel=fecha]").datepicker({noOffset: true});
+});
+
+var radio = $.fn.button.prototype.constructor.Constructor.prototype.toggle;
+$.fn.button.prototype.constructor.Constructor.prototype.toggle = function(){
+    radio.apply(this);
+    var $parent = this.$element.parent('[data-toggle="buttons-radio"]')
+    var target = $parent ? $parent.data('target') : undefined;
+    var value = this.$element.attr('value');
+    if(target && value){
+        $('#'+target).val(value);
+    }
+}
+
+
+
+   $('.removeProfile').live('click', function(e) {
+            $(this).parents('.profile').remove()
+            renumber()
+        })
+        
+        
+        $('.addProfile').live('click', function(e) {
+            var template = $('.profile_template')
+            template.before('<div class="twipsies well profile">' + template.html() + '</div>')
+            renumber()
+        })
+        
+        $('#form').submit(function() {
+            $('.profile_template').remove()
+        })
+        
+        // -- renumber fields
+        
+        // Rename fields to have a coherent payload like:
+        //
+        // informations[0].label
+        // informations[0].email
+        // informations[0].phones[0]
+        // informations[0].phones[1]
+        // ...
+        //
+        // This is probably not the easiest way to do it. A jQuery plugin would help.
+        
+        var renumber = function(phones) {
+            $('.profile').each(function(i) {
+                $('input', this).each(function() {
+                    $(this).attr('name', $(this).attr('name').replace(/informations\[.+?\]/g, 'informations[' + i + ']'))
+                })
+
+            })
+        }
+
+
+</script>
+
+
+
+@informationGroup(field: Field, className: String = "profile") = {
+    <div class="twipsies well @className">
+        
+        <a class="removeProfile btn danger pull-right">Remove this profile</a>
+
+        @inputText(
+            field("label"), 
+            '_label -> "Label"
+        )
+
+        @inputText(
+            field("email"), 
+            '_label -> "Email"
+        )
+        
+    </div>
+}
+
+@main{
+
+
+    @form(action = routes.CRegistro.guardar) {
+        
+        <fieldset>
+        
+        <legend>Profiles</legend>
+
 		@defining(formRegistros("id")) { uidField =>
 			<input type="hidden" name="@uidField.name" id="@uidField.id" value="@uidField.value">
 		}
@@ -11,16 +99,16 @@
  			'_label -> "Cedula",
  			'class -> "input-small",
  			'required -> "required",
-            Symbol("data-minlength") -> "5",
+ 			'minlength -> "5",
  			'maxlength -> "8"
  		)  
  		
  		@inputText(formRegistros("nombre"), 
  			'_label -> "Nombre",
  			'class -> "input-medium",
-            Symbol("data-minlength") -> "5",
- 			'maxlength -> "15",
-            'required -> "required"
+ 			'required -> "required",
+ 			'minlength -> "3",
+ 			'maxlength -> "15"
  		) 
  		
  		
@@ -119,113 +207,35 @@
  			'_label -> "Hijos",
 			'class -> "input-small"
  		)
-
-
-
-    <div class="form-horizontal" id="conyugues">
-
-        <label class="checkbox">
-            <input type="checkbox" name="c1" onclick="mostrar('formConyugue', this)"> Conyugue?
-        </label>
-
-
-        <div id="formConyugue" style="display:none">
-        
-            <fieldset>
-
-            <legend>Datos Personales del Conyugue</legend>
-            
-
-            @inputText(formRegistros("cedulaCo"), 
-                '_label -> "Cedula",
-                'class -> "input-small"
-
-            )
-
-            @inputText(formRegistros("nombreCo"), 
-                '_label -> "Nombre",
-                'class -> "input-medium"
-
-            )
-
-            @inputText(formRegistros("apellidoCo"), 
-                '_label -> "Apellido",
-                'class -> "input-medium"
-
-            )
-
-            @inputText(formRegistros("fechaNacCo"), 
-                '_label -> "Fecha Nacimiento",
-                'class -> "input-small",
-                'rel -> "fecha"
-
-            )
-
-
-            @input(formRegistros("sexoCo"), 
-                '_label -> "Sexo"
-            ) { (id, name, value, args) =>   
-                <input type="hidden" id="@id" name="@name" value="@value" @toHtmlArgs(args) />
-                <div class="btn-group" data-toggle="buttons-radio" data-target="sexoCo"> 
-                     <button type="button" class="btn btn-inverse @if(formRegistros("sexoCo").value == "Masculino"){active}" data-toggle="button" value="Masculino">Masculino</button>                   
-                    <button type="button" class="btn btn-inverse @if(formRegistros("sexoCo").value == "Femenino"){active}" data-toggle="button" value="Femenino">Femenino</button>
-                </div>
-            }
-        
-            @input(formRegistros("nacionalidadCo"), 
-                '_label -> "Nacionalidad"
-            ) { (id, name, value, args) =>   
-                <input type="hidden" id="@id" name="@name" value="@value" @toHtmlArgs(args) />
-                <div class="btn-group" data-toggle="buttons-radio" data-target="nacionalidadCo"> 
-                    <button type="button" class="btn btn-inverse @if(formRegistros("nacionalidadCo").value == "Venezolano"){active}" data-toggle="button" value="Venezolano">Venezolano</button>                   
-                    <button type="button" class="btn btn-inverse @if(formRegistros("nacionalidadCo").value == "Extranjero"){active}" data-toggle="button" value="Extranjero">Extranjero</button>
-                </div>
-            }
-            
-            </fieldset>
-        </div>
-    </div>
-        
-
-<script type="text/javascript">
-
-
-$(function () {
-    $("[rel=fecha]").datepicker({noOffset: true});
-});
-
-var radio = $.fn.button.prototype.constructor.Constructor.prototype.toggle;
-$.fn.button.prototype.constructor.Constructor.prototype.toggle = function(){
-    radio.apply(this);
-    var $parent = this.$element.parent('[data-toggle="buttons-radio"]')
-    var target = $parent ? $parent.data('target') : undefined;
-    var value = this.$element.attr('value');
-    if(target && value){
-        $('#'+target).val(value);
-    }
+ 	 </fieldset>   	
 }
-
-
-
-$('.eliminarConyugue').live('click', function(e) {
-    $(this).parents('.conyugue').remove()
-})
+      			
         
-        
-$('.agregarConyugue').live('click', function(e) {
-    var template = $('.conyugue_template')
-    template.before('<div class="twipsies well conyugue">' + template.html() + '</div>')
-})
-
-
-function mostrar (it, box) {
-    var vis = (box.checked) ? "block" : "none";
-    document.getElementById(it).style.display = vis;
-}
-                
-        
-</script>
-
  
+ 
+<fieldset>
 
-
+<legend>Profiles</legend>
+                       
+            <div id="profiles">
+            
+            
+                <div class="manage">
+                    <a class="addProfile btn success">Add another profile</a>
+                </div>
+                
+                @**
+                 * Keep an hidden block that will be used as template for Javascript copy code
+                 **@
+                @informationGroup(
+                    formRegistros("informations[x]"),
+                    className = "profile_template"
+                )
+                
+                
+            
+            </div>
+            
+</fieldset>
+ 
+}

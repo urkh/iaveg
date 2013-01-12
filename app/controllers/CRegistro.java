@@ -1,12 +1,20 @@
 package controllers;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 import models.Registro;
 import play.data.Form;
+import play.data.DynamicForm;
+import play.db.DB;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.Security;
 import views.html.formRegistros;
 import views.html.listarRegistros;
 
+@Security.Authenticated(Seguridad.class)
 public class CRegistro extends Controller {
 	
 	
@@ -50,8 +58,39 @@ public class CRegistro extends Controller {
 	public static Result guardar(){
 		
 		Form<Registro> formCRegistro = form(Registro.class).bindFromRequest();
+		DynamicForm formRegConyugue = form().bindFromRequest();
 		
 		formCRegistro.get().save();
+		
+		String cedulaCo = formRegConyugue.get("cedulaCo");
+		
+		
+		if (cedulaCo!=null) {
+			
+			try {
+				
+				Connection con = DB.getConnection(); 
+
+				Integer maxId = formCRegistro.get().buscar.findRowCount();
+				String nombreCo = formRegConyugue.get("nombreCo");
+				String apellidoCo = formRegConyugue.get("apellidoCo");
+				String fechaNacCo = formRegConyugue.get("fechaNacCo");
+				String nacionalidadCo = formRegConyugue.get("nacionalidadCo");
+				String sexoCo = formRegConyugue.get("sexoCo");
+				
+				PreparedStatement pstm = con.prepareStatement("INSERT INTO registro_conyugue (registro_id, cedula, nombres, apellidos, fecha_nac, nacionalidad, sexo) VALUES ('" +maxId+ "', '" + cedulaCo + "', '" + nombreCo + "', '" + apellidoCo + "', '" + fechaNacCo + "', '" + nacionalidadCo + "', '"+ sexoCo +"');");
+
+
+				pstm.executeUpdate();
+
+			} catch (SQLException e) {
+				System.out.println(e);
+			}
+			
+		}
+
+		
+		
 		flash("exito", "El registro de solicitud se ha realizado exitosamente!");
 		return Inicio;
 			

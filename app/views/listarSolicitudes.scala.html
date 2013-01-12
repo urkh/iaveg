@@ -1,4 +1,4 @@
-@(paginaActual: Page[Registro], currentSortBy: String, currentOrder: String, currentFilter: String)
+@(paginaActual: Page[Solicitud], currentSortBy: String, currentOrder: String, currentFilter: String)
 @import helper._
 
 @link(newPage:Int, newSortBy:String) = @{
@@ -25,7 +25,7 @@
 
 
 @titulo = {
-   Lista de Registros
+   Lista de Solicitudes Realizadas
 }
 
 @header(key:String, title:String) = {
@@ -34,7 +34,7 @@
     </th>
 }
 
-@main(titulo, nav = "registros") {
+@main(titulo, nav = "solicitudes") {
 
     <script>
         $(function () {
@@ -43,7 +43,7 @@
 
     </script>
     
-    <h1 id="homeTitle">@Messages("registros.listar.titulo", paginaActual.getTotalRowCount)</h1>
+    <h1 id="homeTitle">@Messages("solicitudes.listar.titulo", paginaActual.getTotalRowCount)</h1>
 
     @if(flash.containsKey("exito")) {
         <div class="alert alert-success">
@@ -62,7 +62,7 @@
         </div>
         </form>
         
-        <a data-target="#formNuevo" data-toggle="modal" rel="tooltip" data-placement="left" title="Agregar un Registro" class="btn btn-success" id="add" href="@routes.CRegistro.nuevo()">Nuevo</a>
+        <a data-target="#formNuevo" data-toggle="modal" rel="tooltip" data-placement="left" title="Realizar Nueva Solicitud" class="btn btn-success" id="add" href="@routes.CSolicitud.nuevo()">Nueva</a>
         
     </div>
     
@@ -77,33 +77,33 @@
         <table class="table table-striped table-bordered table-hover">
             <thead>
                 <tr>
-                    @header("cedula", "Cedula")
-                    @header("nombre", "Nombre")
-                    @header("apellido", "Apellido")
-                    @header("sexo", "Sexo")
+                    @header("fechaReg", "Cedula")
+                    @header("fechaReg", "Solicitud")
+                    @header("fechaReg", "Fecha")
+                    @header("estadoSol", "Estado")
                     
                 </tr>
             </thead>
             <tbody>
 
-                @for(registros <- paginaActual.getList) {
+                @for(solicitudes <- paginaActual.getList) {
                     <tr>
                         <td>
-                            <a data-target="#formEditar" data-toggle="modal" href="@routes.CRegistro.editar(registros.id)" rel="tooltip" data-placement="right" title="@registros.cedula">@registros.cedula</a>
+                            <a data-target="#formEditar" data-toggle="modal" href="@routes.CSolicitud.editar(solicitudes.id)" rel="tooltip" data-placement="right" title="@solicitudes.fechaReg">@solicitudes.fechaReg</a>
                         </td>
                         
                         <td>
                          
-                            <span rel="tooltip" data-placement="left" title="@registros.nombre">@registros.nombre</span>
+                            <span rel="tooltip" data-placement="left" title="@solicitudes.fechaReg">@solicitudes.fechaReg</span>
                                 
                         </td>
                         
                          <td>
-                            <span rel="tooltip" data-placement="left" title="@registros.apellido">@registros.apellido</span>   
+                            <span rel="tooltip" data-placement="left" title="@solicitudes.fechaReg">@solicitudes.fechaReg</span>   
                         </td>
                         
                          <td>
-                            <span rel="tooltip" data-placement="left" title="@registros.sexo">@registros.sexo</span>      
+                            <span rel="tooltip" data-placement="left" title="@solicitudes.estadoSol">@solicitudes.estadoSol</span>      
                         </td>
 
                     </tr>
@@ -142,7 +142,7 @@
 
 
 
-<form data-validate="yes" action="@routes.CRegistro.guardar()" method="POST">
+<form data-validate="yes" action="@routes.CSolicitud.guardar()" method="POST">
     <div id="formNuevo" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
 
         <div class="modal-header">
@@ -162,7 +162,7 @@
 </form>
 
 
-<form data-validate="yes" action="@routes.CRegistro.actualizar()" method="POST">    
+<form data-validate="yes" action="@routes.CSolicitud.actualizar()" method="POST">    
 <div id="formEditar" class="modal fade hide" tabindex="-1" role="dialog" aria-hidden="true" >
 
     <div class="modal-header">
@@ -181,12 +181,5 @@
 
 </div>
 </form>
-
-    
-    
         
 }
-
-
-
-            

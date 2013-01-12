@@ -56,8 +56,8 @@ $.fn.button.prototype.constructor.Constructor.prototype.toggle = function(){
         ) { (id, name, value, args) =>   
                 <input type="hidden" id="@id" name="@name" value="@value" @toHtmlArgs(args) />
                 <div class="btn-group" data-toggle="buttons-radio" data-target="sexo"> 
-                    <button type="button" class="btn btn-inverse data-toggle="button" value="Masculino">Masculino</button>                   
-                    <button type="button" class="btn btn-inverse data-toggle="button" value="Ninguno">Ninguno</button>
+                    <button type="button" class="btn btn-inverse @if(formUsuarios("sexo").value == "Masculino"){active}" data-toggle="button" value="Masculino">Masculino</button>                   
+                    <button type="button" class="btn btn-inverse @if(formUsuarios("sexo").value == "Femenino"){active}" data-toggle="button" value="Femenino">Femenino</button>
                 </div>
        }
 

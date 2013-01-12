@@ -17,6 +17,21 @@ public class Seguridad extends Security.Authenticator {
     public Result onUnauthorized(Context ctx) {
         return redirect(routes.LoginU.login());
     }
+
+
+/*    public static boolean isMemberOf(Long project) {
+        return Project.isMember(
+            project,
+            Context.current().request().username()
+        );
+    }
+    
+    public static boolean isOwnerOf(Long task) {
+        return Task.isOwner(
+            task,
+            Context.current().request().username()
+        );
+    }*/
     
 
     

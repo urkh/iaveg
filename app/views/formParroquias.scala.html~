@@ -2,7 +2,6 @@
 @import helper._
 @implicitFieldConstructor = @{ FieldConstructor(bootstrapTemplates.render) } 
 
-
 	@defining(formParroquias("id")) { uidField =>
 		<input type="hidden" name="@uidField.name" id="@uidField.id" value="@uidField.value">
 	}
@@ -26,3 +25,13 @@
      	)  
      	
      	
+ 	
+
+      
+           
+
+			
+
+
+    
+
