@@ -18,15 +18,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.typesafe.config.ConfigException.Parse;
-
-
-
 
 @Security.Authenticated(Seguridad.class)
 public class CSolicitud extends Controller {
@@ -48,26 +44,34 @@ public class CSolicitud extends Controller {
 	public static Result verReporte(Long id) {
 
 		Connection con = DB.getConnection();
-		Result resp = null; 
-
+		String idRegistro = null;
+		String idSolicitud = null;
+		String lph = null;
+		String fechaRegSol = null;
+		DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+		
 		
 		try{
-			PreparedStatement pstm = con.prepareStatement("SELECT so.registro_id, so.solicitud_id, so.fecha_reg_sol, so.lph, so.tenencia, so.estado_sol, so.doc_completa, so.observacion FROM solicitud so WHERE so.id='1' ");
+			PreparedStatement pstm = con.prepareStatement("SELECT so.registro_id, so.solicitud_id, so.fecha_reg_sol, so.lph, so.tenencia, so.estado_sol, so.doc_completa, so.observacion FROM solicitud so WHERE so.id='" + id + "'");
 
 			ResultSet res = pstm.executeQuery();
+			
+			if(res.next()){
 				
-				String idRegistro = String.valueOf(res.getLong("registro_id"));
-				String idSolicitud = String.valueOf(res.getString("solicitud_id"));
-				//String fechaRegSol = res.getString("fecha_reg_sol");
-				String lph = res.getString("lph");
+				 idRegistro = String.valueOf(res.getLong("registro_id"));
+				 idSolicitud = String.valueOf(res.getString("solicitud_id"));
+				 fechaRegSol = df.format(res.getDate("fecha_reg_sol"));
+				 lph = res.getString("lph");
+				 
+
 			    
-			    resp = PDF.ok(reportes.render(idRegistro, idSolicitud, lph));
+			}
 
 	    } catch (SQLException e) {
 	    	e.printStackTrace();
 	    }
-
-		return resp;
+		
+		return PDF.ok(reportes.render(idRegistro, idSolicitud, lph, fechaRegSol));
 	}
 
 	
