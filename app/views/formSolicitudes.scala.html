@@ -1,38 +1,38 @@
+
 @(formSolicitud: Form[Solicitud])
 @import helper._
 @implicitFieldConstructor = @{ FieldConstructor(bootstrapTemplates.render) } 
 
-@titulo = {
-    Nueva Solicitud
-}
-
-
-@main(titulo, nav = "Solicitud"){
-
-
- <form class="form-horizontal" data-validate="yes" method="POST">   
         
-        
-        <legend>Datos de la Solicitud</legend>
-
 		@defining(formSolicitud("id")) { uidField =>
 			<input type="hidden" name="@uidField.name" id="@uidField.id" value="@uidField.value">
 		}
-  
- 		@inputText(formSolicitud("codigo"), 
- 			'_label -> "Codigo",
- 			'class -> "input-small",
- 			'required -> "required",
-            Symbol("data-minlength") -> "5",
- 			'maxlength -> "8"
- 		)  
+        
+        <input type="hidden" name="registro" value="@formSolicitud("registro").value" >
+        
+@if(formSolicitud("id").value==null){    
+        
+        @inputText(formSolicitud("nombre"), 
+            '_label -> "Nombre",
+            'class -> "input-small",
+            'required -> "required",
+            Symbol("readOnly") -> ""
+        )  
+        
+        
+        @inputText(formSolicitud("apellido"), 
+            '_label -> "Apellido",
+            'class -> "input-small",
+            'required -> "required",
+            Symbol("readOnly") -> ""
+        )  
 
-        @select(formSolicitud("tipoSolicitudes.id"), 
+}
+        @select(formSolicitud("solicitud.id"), 
             options(TipoSolicitudes.opciones), 
             '_label -> "Solicitud",
             'required -> "required",
-            '_default -> "-- Seleccione una Solicitud --",
-            '_showConstraints -> false
+            '_default -> "-- Seleccione una Solicitud --"
         )
 
 
@@ -42,8 +42,8 @@
         ) { (id, name, value, args) =>   
                 <input type="hidden" id="@id" name="@name" value="@value" @toHtmlArgs(args) />
                 <div class="btn-group" data-toggle="buttons-radio" data-target="lph"> 
-                     <button type="button" class="btn btn-inverse @if(formSolicitud("lph").value == "true"){active}" data-toggle="button" value="true">Si</button>                   
-                    <button type="button" class="btn btn-inverse @if(formSolicitud("lph").value == "false"){active}" data-toggle="button" value="false">No</button>
+<button type="button" class="btn btn-inverse @if(formSolicitud("lph").value == "S"){active}" data-toggle="button" value="S">Si</button>                   
+<button type="button" class="btn btn-inverse @if(formSolicitud("lph").value == "N"){active}" data-toggle="button" value="N">No</button>
                 </div>
        }
 
@@ -75,8 +75,8 @@
         ) { (id, name, value, args) =>   
                 <input type="hidden" id="@id" name="@name" value="@value" @toHtmlArgs(args) />
                 <div class="btn-group" data-toggle="buttons-radio" data-target="docCompleta"> 
-                     <button type="button" class="btn btn-inverse @if(formSolicitud("docCompleta").value == "true"){active}" data-toggle="button" value="true">Completa</button>                   
-                    <button type="button" class="btn btn-inverse @if(formSolicitud("docCompleta").value == "false"){active}" data-toggle="button" value="false">Incompleta</button>
+<button type="button" class="btn btn-inverse @if(formSolicitud("docCompleta").value == "S"){active}" data-toggle="button" value="S">Completa</button>                   
+<button type="button" class="btn btn-inverse @if(formSolicitud("docCompleta").value == "N"){active}" data-toggle="button" value="N">Incompleta</button>
                 </div>
        }
  		
@@ -87,12 +87,9 @@
  			'rows -> "3"
  		)
 
-</form>
-
 
 <script type="text/javascript">
-
-
+      	
 $(function () {
     $("[rel=fecha]").datepicker({noOffset: true});
 });
@@ -107,10 +104,8 @@ $.fn.button.prototype.constructor.Constructor.prototype.toggle = function(){
         $('#'+target).val(value);
     }
 }                
-        
+      
 </script>
 
- 
-}
 
 

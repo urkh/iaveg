@@ -36,12 +36,7 @@
 
 @main(titulo, nav = "parroquias") {
 
-    <script>
-    
-        $(function () {
-            $("[rel=tooltip]").tooltip();
-        });
-    </script>
+   
     
     <h1 id="homeTitle">@Messages("parroquias.listar.titulo", paginaActual.getTotalRowCount)</h1>
 
@@ -194,7 +189,12 @@
 </div>
 </form>
     
+ <script>
     
+        $(function () {
+            $("[rel=tooltip]").tooltip();
+        });
+    </script>
         
 }
 

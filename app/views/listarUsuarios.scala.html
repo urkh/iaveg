@@ -35,23 +35,6 @@
 
 @main(titulo, nav = "usuarios") {
 
-    <script>
-        $(function () {
-            $("[rel=tooltip]").tooltip();
-        });
-        
-        var sexo = $.fn.button.prototype.constructor.Constructor.prototype.toggle;
-        $.fn.button.prototype.constructor.Constructor.prototype.toggle = function(){
-            sexo.apply(this);
-            var $parent = this.$element.parent('[data-toggle="buttons-radio"]')
-            var target = $parent ? $parent.data('target') : undefined;
-            var value = this.$element.attr('value');
-            if(target && value){
-                $('#'+target).val(value);
-            }
-        }
-            
-    </script>
     
     <h1 id="homeTitle">@Messages("usuarios.listar.titulo", paginaActual.getTotalRowCount)</h1>
 
@@ -189,6 +172,26 @@
 </div>
 
 </form>
+
+
+
+ <script>
+        $(function () {
+            $("[rel=tooltip]").tooltip();
+        });
+        
+        var sexo = $.fn.button.prototype.constructor.Constructor.prototype.toggle;
+        $.fn.button.prototype.constructor.Constructor.prototype.toggle = function(){
+            sexo.apply(this);
+            var $parent = this.$element.parent('[data-toggle="buttons-radio"]')
+            var target = $parent ? $parent.data('target') : undefined;
+            var value = this.$element.attr('value');
+            if(target && value){
+                $('#'+target).val(value);
+            }
+        }
+            
+    </script>
         
 
          

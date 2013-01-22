@@ -2,21 +2,7 @@
 @import helper._
 @implicitFieldConstructor = @{ FieldConstructor(bootstrapTemplates.render) } 
 
-<script type="text/javascript">
 
-var radio = $.fn.button.prototype.constructor.Constructor.prototype.toggle;
-$.fn.button.prototype.constructor.Constructor.prototype.toggle = function(){
-    radio.apply(this);
-    var $parent = this.$element.parent('[data-toggle="buttons-radio"]')
-    var target = $parent ? $parent.data('target') : undefined;
-    var value = this.$element.attr('value');
-    if(target && value){
-        $('#'+target).val(value);
-    }
-}
-
-
-</script>
 
 
 @defining(formUsuarios("id")) { uidField =>
@@ -77,4 +63,21 @@ $.fn.button.prototype.constructor.Constructor.prototype.toggle = function(){
  			'minlength -> "6",
  			'maxlength -> "12"
  		) 
+        
+        
+<script type="text/javascript">
+
+var radio = $.fn.button.prototype.constructor.Constructor.prototype.toggle;
+$.fn.button.prototype.constructor.Constructor.prototype.toggle = function(){
+    radio.apply(this);
+    var $parent = this.$element.parent('[data-toggle="buttons-radio"]')
+    var target = $parent ? $parent.data('target') : undefined;
+    var value = this.$element.attr('value');
+    if(target && value){
+        $('#'+target).val(value);
+    }
+}
+
+
+</script>
  

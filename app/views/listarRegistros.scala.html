@@ -36,12 +36,7 @@
 
 @main(titulo, nav = "registros") {
 
-    <script>
-        $(function () {
-            $("[rel=tooltip]").tooltip();
-        });
-
-    </script>
+    
     
     <h1 id="homeTitle">@Messages("registros.listar.titulo", paginaActual.getTotalRowCount)</h1>
 
@@ -56,8 +51,8 @@
         <form action="@link(0, "cedula")" method="GET">
         <div class="input-append">
         
-            <input class="span3" id="appendedInputButton" size="16" name="busqueda" type="text" value="@currentFilter" placeholder="Ingrese un nombre...">
-            <button rel="tooltip" data-placement="right" title="Ingrese un nombre a buscar" class="btn btn-primary" type="submit">Buscar</button>
+            <input class="span3" id="appendedInputButton" size="16" name="busqueda" type="text" value="@currentFilter" placeholder="Ingrese una cedula...">
+            <button rel="tooltip" data-placement="right" title="Ingrese una cedula a buscar" class="btn btn-primary" type="submit">Buscar</button>
  
         </div>
         </form>
@@ -182,7 +177,17 @@
 </div>
 </form>
 
-    
+<script>
+
+$(document).ready(function(){
+$("#formNuevo").validate();
+  });
+
+        $(function () {
+            $("[rel=tooltip]").tooltip();
+        });
+
+    </script>    
     
         
 }

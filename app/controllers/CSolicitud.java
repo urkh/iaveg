@@ -1,18 +1,37 @@
 package controllers;
 
 import models.Solicitud;
+import play.data.DynamicForm;
 import play.data.Form;
+import play.db.DB;
+import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
+import util.pdf.PDF;
 import views.html.formSolicitudes;
 import views.html.listarSolicitudes;
+import views.html.reportes;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.typesafe.config.ConfigException.Parse;
+
+
 
 
 @Security.Authenticated(Seguridad.class)
 public class CSolicitud extends Controller {
 	
-	public static Result Inicio = redirect(routes.CSolicitud.listar(0, "solicitud", "asc", ""));
+	public static Result Inicio = redirect(routes.CSolicitud.listar(0, "cedula", "asc", ""));
 	
 	public static Result index(){
 		return Inicio;
@@ -22,6 +41,85 @@ public class CSolicitud extends Controller {
 	public static Result listar(int pagina, String ordenarPor, String orden, String filtro) {
 		return ok(listarSolicitudes.render(Solicitud.pagina(pagina, 10, ordenarPor, orden, filtro), ordenarPor, orden, filtro));
 	}
+	
+	
+	
+	
+	public static Result verReporte(Long id) {
+
+		Connection con = DB.getConnection();
+		Result resp = null; 
+
+		
+		try{
+			PreparedStatement pstm = con.prepareStatement("SELECT so.registro_id, so.solicitud_id, so.fecha_reg_sol, so.lph, so.tenencia, so.estado_sol, so.doc_completa, so.observacion FROM solicitud so WHERE so.id='1' ");
+
+			ResultSet res = pstm.executeQuery();
+				
+				String idRegistro = String.valueOf(res.getLong("registro_id"));
+				String idSolicitud = String.valueOf(res.getString("solicitud_id"));
+				//String fechaRegSol = res.getString("fecha_reg_sol");
+				String lph = res.getString("lph");
+			    
+			    resp = PDF.ok(reportes.render(idRegistro, idSolicitud, lph));
+
+	    } catch (SQLException e) {
+	    	e.printStackTrace();
+	    }
+
+		return resp;
+	}
+
+	
+	
+	
+	
+	public static Result buscarCedula() {
+		Map<String,String[]> queryParameters = request().queryString();
+
+		String cedulaRe = queryParameters.get("busqueda")[0];
+		Connection con = DB.getConnection(); 
+		Status resp = null;
+		
+		try{
+			PreparedStatement pstm = con.prepareStatement("SELECT id, cedula, nombre, apellido FROM registro WHERE cedula='" + cedulaRe + "' ");
+
+			ResultSet res = pstm.executeQuery();
+			if (res.next()){
+				
+				String idRegistro = res.getString("id");
+				String cedula = res.getString("cedula");
+				String nombre = res.getString("nombre");
+				String apellido = res.getString("apellido");
+				
+				Map<String,String> d = new HashMap<String,String>();
+						
+			
+		        d.put("registro",idRegistro);
+		        d.put("cedula",cedula);
+		        d.put("nombre",nombre);
+		        d.put("apellido",apellido);       
+		    
+				
+		        resp=ok(Json.toJson(d)); 
+
+		    }else{
+		    	
+		    	resp=badRequest("Cedula no encontrada");
+		    
+		    }
+		
+
+	    } catch (SQLException e) {
+	    	e.printStackTrace();
+	    }
+		
+		
+		return resp;
+		
+	}
+	
+	
 	
 	public static Result nuevo() {
 		Form<Solicitud> formCSolicitudes = form(Solicitud.class);
@@ -34,23 +132,74 @@ public class CSolicitud extends Controller {
 		return ok(formSolicitudes.render(formCSolicitudes));
 	}
 	
+	
+	
+	
 	public static Result actualizar(){
-		Form<Solicitud> formCSolicitudes = form(Solicitud.class).bindFromRequest();
-
-		String ids = formCSolicitudes.field("id").value();
+	
+		DynamicForm formActSol = form().bindFromRequest();
 		
-		Long id = Long.parseLong(ids);
-		formCSolicitudes.get().update(id);
-		flash("exito", "Solicitud " + formCSolicitudes.get().solicitud + " actualizada con exito");
+		try {
+				
+			String ids = formActSol.get("id");
+			String tipoSolicitudes = formActSol.get("solicitud.id");
+			String lph = formActSol.get("lph");
+			String tenencia = formActSol.get("tenencia");
+			String estadoSol = formActSol.get("estadoSol");
+			String docCompleta = formActSol.get("docCompleta");
+			String observacion = formActSol.get("observacion");
+			
+			Connection con = DB.getConnection(); 
+			Long id = Long.parseLong(ids);
+
+			
+			PreparedStatement pstm = con.prepareStatement("UPDATE solicitud SET solicitud_id='" +tipoSolicitudes+ "', lph='" +lph+ "', tenencia='" +tenencia+ "', estado_sol='" +estadoSol+ "', doc_completa='"+docCompleta+"', observacion='"+observacion+"' WHERE id='"+id+"';");
+			pstm.executeUpdate();
+
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+
+		flash("exito", "Solicitud actualizada con exito");
 		return Inicio;
 	}
 	
+	
+	
+	
 	public static Result guardar(){
 		
-		Form<Solicitud> formTSolicitudes = form(Solicitud.class).bindFromRequest();		
+		DynamicForm formRegSol = form().bindFromRequest();
+				
+			
+			try {
+				
+				String idRegistro = formRegSol.get("registro");
+				String tipoSolicitudes = formRegSol.get("solicitud.id");
+				String lph = formRegSol.get("lph");
+				String tenencia = formRegSol.get("tenencia");
+				String estadoSol = formRegSol.get("estadoSol");
+				String docCompleta = formRegSol.get("docCompleta");
+				String observacion = formRegSol.get("observacion");
+				
+
+				DateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
+   				Date fechaDate = new Date();
+   				String fecha = formateador.format(fechaDate);
+				
+				System.out.println(fecha);
+				
+
+				Connection con = DB.getConnection(); 
+				PreparedStatement pstm = con.prepareStatement("INSERT INTO solicitud (registro_id, solicitud_id, lph, tenencia, estado_sol, doc_completa, observacion, fecha_reg_sol) VALUES ('" +idRegistro+ "', '" +tipoSolicitudes+ "', '" +lph+ "', '" +tenencia+ "', '" +estadoSol+ "', '"+docCompleta+"', '"+observacion+"', '"+fecha+"');");
+				pstm.executeUpdate();
+
+			} catch (SQLException e) {
+				System.out.println(e);
+			}
+			
 		
-		formTSolicitudes.get().save();
-		flash("exito", "Solicitud " + formTSolicitudes.get().solicitud + " guardada exitosamente!");
+		flash("exito", "La solicitud ha sido guardada exitosamente!");
 		return Inicio;
 		
 	}

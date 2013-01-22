@@ -50,12 +50,11 @@ create table solicitud (
   id                        bigint auto_increment not null,
   registro_id               bigint,
   solicitud_id              bigint,
-  codigo                    varchar(255),
-  fecha_reg                 datetime,
-  lph                       tinyint(1) default 0,
+  fecha_reg_sol             datetime,
+  lph                       varchar(255),
   tenencia                  varchar(255),
   estado_sol                varchar(255),
-  doc_completa              tinyint(1) default 0,
+  doc_completa              varchar(255),
   observacion               varchar(255),
   constraint pk_solicitud primary key (id))
 ;

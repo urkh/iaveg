@@ -9,12 +9,11 @@
   
  		@inputText(formRegistros("cedula"), 
  			'_label -> "Cedula",
- 			'class -> "input-small",
- 			'required -> "required",
-            Symbol("data-minlength") -> "5",
+ 			'class -> "input-small required",
+            'minlength -> "4",
  			'maxlength -> "8"
  		)  
- 		
+
  		@inputText(formRegistros("nombre"), 
  			'_label -> "Nombre",
  			'class -> "input-medium",
@@ -188,6 +187,9 @@
         
 
 <script type="text/javascript">
+$(document).ready(function(){
+$("#formNuevo").validate();
+  });
 
 
 $(function () {
@@ -204,18 +206,6 @@ $.fn.button.prototype.constructor.Constructor.prototype.toggle = function(){
         $('#'+target).val(value);
     }
 }
-
-
-
-$('.eliminarConyugue').live('click', function(e) {
-    $(this).parents('.conyugue').remove()
-})
-        
-        
-$('.agregarConyugue').live('click', function(e) {
-    var template = $('.conyugue_template')
-    template.before('<div class="twipsies well conyugue">' + template.html() + '</div>')
-})
 
 
 function mostrar (it, box) {

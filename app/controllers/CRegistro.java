@@ -71,7 +71,8 @@ public class CRegistro extends Controller {
 				
 				Connection con = DB.getConnection(); 
 
-				Integer maxId = formCRegistro.get().buscar.findRowCount();
+				//formCRegistro.get();
+				Long maxId = (long) Registro.buscar.findRowCount();
 				String nombreCo = formRegConyugue.get("nombreCo");
 				String apellidoCo = formRegConyugue.get("apellidoCo");
 				String fechaNacCo = formRegConyugue.get("fechaNacCo");

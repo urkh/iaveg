@@ -67,16 +67,4 @@ public class Registro extends Model {
 		return buscar.where().ilike("cedula", "%" + filtrar + "%").orderBy(ordenarPor + " " + ordenar).findPagingList(tamanoPagina).getPage(pagina);
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

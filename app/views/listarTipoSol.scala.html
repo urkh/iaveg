@@ -36,12 +36,7 @@
 
 @main(titulo, nav = "tipoSol") {
 
-    <script>
-        $(function () {
-            $("[rel=tooltip]").tooltip();
-        });
 
-    </script>
     
     <h1 id="homeTitle">@Messages("tipoSol.listar.titulo", paginaActual.getTotalRowCount)</h1>
 
@@ -53,7 +48,7 @@
 
     <div id="actions">
         
-        <form action="@link(0, "cedula")" method="GET">
+        <form action="@link(0, "solicitud")" method="GET">
         <div class="input-append">
         
             <input class="span3" id="appendedInputButton" size="16" name="busqueda" type="text" value="@currentFilter" placeholder="Ingrese un nombre...">
@@ -153,7 +148,7 @@
 
 
 <form data-validate="yes" action="@routes.CTSolicitud.actualizar()" method="POST">    
-<div id="formEditar" class="modal fade hide" tabindex="-1" role="dialog" aria-hidden="true" >
+<div id="formEditar" class="modal fade hide" tabindex="-1" role="dialog" >
 
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -163,7 +158,7 @@
     <div class="modal-body form-horizontal"></div>
 
      <div class="modal-footer">
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+        <button id="cerrar" class="btn" data-dismiss="modal" data-target="#formEditar"  >Cerrar</button>
             <input type="submit" value="Guardar" class="btn btn-primary">
         </div>
 
@@ -171,6 +166,16 @@
 
 </div>
 </form>
+
+
+    <script>
+    
+        $(function () {
+            $("[rel=tooltip]").tooltip();
+        });
+               
+        
+    </script>
 
     
     
