@@ -53,6 +53,7 @@ public class CParroquias extends Controller {
 		Form<Parroquias> formCParroquias = form(Parroquias.class).bindFromRequest();
 		
 		formCParroquias.get().save();
+		
 		flash("exito", "Parroquia " + formCParroquias.get().parroquia + "guardada exitosamente!");
 		return Inicio;
 			

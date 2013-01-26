@@ -18,7 +18,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -44,24 +43,51 @@ public class CSolicitud extends Controller {
 	public static Result verReporte(Long id) {
 
 		Connection con = DB.getConnection();
-		String idRegistro = null;
-		String idSolicitud = null;
 		String lph = null;
 		String fechaRegSol = null;
+		String tenencia = null;
+		String estadoSol = null;
+		String docCompleta = null;
+		String observacion = null;
+		String cedula = null;
+		String nombre = null;
+		String apellido = null;
+		String telefono = null;
+		String nacionalidad = null;
+		String direccion = null;
+		String sexo = null;
+		String ingresoMensual = null;
+		String hijos = null;
+		String solicitud = null;
+
 		DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 		
 		
 		try{
-			PreparedStatement pstm = con.prepareStatement("SELECT so.registro_id, so.solicitud_id, so.fecha_reg_sol, so.lph, so.tenencia, so.estado_sol, so.doc_completa, so.observacion FROM solicitud so WHERE so.id='" + id + "'");
+			PreparedStatement pstm = con.prepareStatement("SELECT so.fecha_reg_sol, so.lph, so.tenencia, so.estado_sol, so.doc_completa, so.observacion, re.cedula, re.nombre, re.apellido, re.telefono, re.nacionalidad, re.direccion, re.sexo, re.ingreso_mensual, re.hijos, tso.solicitud FROM solicitud so, registro re, tipo_solicitudes tso WHERE so.registro_id=re.id AND tso.id=so.solicitud_id AND so.id='" + id + "'");
 
 			ResultSet res = pstm.executeQuery();
 			
 			if(res.next()){
 				
-				 idRegistro = String.valueOf(res.getLong("registro_id"));
-				 idSolicitud = String.valueOf(res.getString("solicitud_id"));
 				 fechaRegSol = df.format(res.getDate("fecha_reg_sol"));
 				 lph = res.getString("lph");
+				 tenencia = res.getString("tenencia");
+				 estadoSol = res.getString("estado_sol");
+				 docCompleta = res.getString("doc_completa");
+				 observacion = res.getString("observacion");
+				 cedula = String.valueOf(res.getInt("cedula"));
+				 nombre = res.getString("nombre");
+				 apellido = res.getString("apellido");
+				 telefono = String.valueOf(res.getInt("telefono"));
+				 nacionalidad = res.getString("nacionalidad");
+				 direccion = res.getString("direccion");
+				 sexo = res.getString("sexo");
+				 ingresoMensual = String.valueOf(res.getDouble("ingreso_mensual"));
+				 hijos = String.valueOf(res.getInt("hijos"));
+				 solicitud = res.getString("solicitud");
+
+
 				 
 
 			    
@@ -71,7 +97,7 @@ public class CSolicitud extends Controller {
 	    	e.printStackTrace();
 	    }
 		
-		return PDF.ok(reportes.render(idRegistro, idSolicitud, lph, fechaRegSol));
+		return PDF.ok(reportes.render(lph, fechaRegSol, tenencia, estadoSol, docCompleta, observacion, cedula, nombre, apellido, telefono, nacionalidad, direccion, sexo, ingresoMensual, hijos, solicitud));
 	}
 
 	
@@ -190,9 +216,7 @@ public class CSolicitud extends Controller {
 				DateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
    				Date fechaDate = new Date();
    				String fecha = formateador.format(fechaDate);
-				
-				System.out.println(fecha);
-				
+							
 
 				Connection con = DB.getConnection(); 
 				PreparedStatement pstm = con.prepareStatement("INSERT INTO solicitud (registro_id, solicitud_id, lph, tenencia, estado_sol, doc_completa, observacion, fecha_reg_sol) VALUES ('" +idRegistro+ "', '" +tipoSolicitudes+ "', '" +lph+ "', '" +tenencia+ "', '" +estadoSol+ "', '"+docCompleta+"', '"+observacion+"', '"+fecha+"');");

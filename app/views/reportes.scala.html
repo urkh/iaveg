@@ -1,17 +1,146 @@
-@(idRegistro: String, idSolicitud: String, lph: String, fechaRegSol: String)
+@(lph: String, fechaRegSol: String, tenencia: String, estadoSol: String, docCompleta: String, observacion: String, cedula: String, nombre: String, apellido: String, telefono: String, nacionalidad: String, direccion: String, sexo: String, ingresoMensual: String, hijos: String, solicitud: String)
 <!DOCTYPE html>
-
 <html>
-    <head>
-        <title>Datos del reporte</title>
-        <link rel="stylesheet" href="/public/stylesheets/pdf.css"/>
-    </head>
-    <body>
-      Image: <img src="/public/images/favicon.png"/><br/>
-      Hello world! <br/>
-      @idRegistro <br/>
-      @idSolicitud <br/>
-      @lph <br/>
-      @fechaRegSol <br/>
-    </body>
+  
+  <head>
+    <title>Hola :D</title>
+  </head>
+  <body>
+
+    <table border="1" width="100%">
+          <tr>
+            <td width="50%" align="left">
+               <img src="./public/images/iavegLogo.png"/>
+            </td>
+            <td width="50%" align="right">
+               <img src="./public/images/logoGuarico.jpg"/>
+            </td>
+          </tr>
+    </table>
+
+    <br/>
+    <br/>
+
+    <table width="100%">
+      <tr>
+        <td align="center">Ficha de Control de Expediente</td>
+      </tr>
+      <tr>
+        <td align="center">Instituto Autonomo de la Vivienda del Estado Guarico</td>
+      </tr>
+      <tr>
+        <td align="center">Gerencia de promocion Social</td>
+      </tr>
+    </table>
+
+    <br/>
+    <br/>
+
+    <table width="100%">
+      <tr>
+        <td align="center"><b>Datos del Solicitante</b></td>
+      </tr>
+    </table>
+
+    <br/>
+
+    <table width="100%">
+      <tr>
+        <td width="50%" align="right">Cedula:  </td>
+        <td width="50%" align="leftt">  @cedula</td>
+      </tr>
+      <tr>
+        <td width="50%" align="right">Nombre:  </td>
+        <td width="50%" align="leftt">  @nombre</td>
+      </tr>
+      <tr>
+        <td width="50%" align="right">Apellido:  </td>
+        <td width="50%" align="leftt">  @apellido</td>
+      </tr>
+      <tr >
+        <td width="50%" align="right">Telefono:  </td>
+        <td width="50%" align="left">  @telefono</td>
+      </tr>
+      <tr >
+        <td width="50%" align="right">Nacionalidad:  </td>
+        <td width="50%" align="leftt">  @nacionalidad</td>
+      </tr>
+      <tr >
+        <td width="50%" align="right">Cantidad de Hijos:  </td>
+        <td width="50%" align="left">  @hijos</td>
+      </tr>
+      <tr >
+        <td width="50%" align="right">Ingreso Mensual:  </td>
+        <td width="50%" align="left">  @ingresoMensual</td>
+      </tr>
+      <tr >
+        <td width="50%" align="right">Municipio:  </td>
+        <td width="50%" align="left">  a</td>
+      </tr>
+      <tr >
+        <td width="50%" align="right">Parroquia:  </td>
+        <td width="50%" align="left">  a</td>
+      </tr>
+      <tr >
+        <td width="50%" align="right">Direccion:  </td>
+        <td width="50%" align="left">  @direccion</td>
+      </tr>
+    </table>
+
+
+    <br/>
+    <br/>
+
+    <table width="100%">
+      <tr>
+        <td align="center"><b>Datos de la Solicitud</b></td>
+      </tr>
+    </table>
+
+    <br/>
+
+    <table width="100%">
+      <tr>
+        <td width="50%" align="right">Codigo:  </td>
+        <td width="50%" align="leftt">  codigo</td>
+      </tr>
+      <tr>
+        <td width="50%" align="right">Tipo de Solicitud:  </td>
+        <td width="50%" align="leftt">  @solicitud</td>
+      </tr>
+      <tr>
+        <td width="50%" align="right">Fecha de Registro:  </td>
+        <td width="50%" align="leftt">  @fechaRegSol</td>
+      </tr>
+      <tr >
+        <td width="50%" align="right">LPH:  </td>
+        <td width="50%" align="left">  @lph</td>
+      </tr>
+      <tr >
+        <td width="50%" align="right">Tenencia:  </td>
+        <td width="50%" align="leftt">  @tenencia</td>
+      </tr>
+      <tr >
+        <td width="50%" align="right">Estado:  </td>
+        <td width="50%" align="left">  @estadoSol</td>
+      </tr>
+      <tr >
+        <td width="50%" align="right">Documentacion:  </td>
+        <td width="50%" align="left">  @docCompleta</td>
+      </tr>
+      <tr >
+        <td width="50%" align="right">Observacion:  </td>
+        <td width="50%" align="left">  @observacion</td>
+      </tr>
+    </table>
+    <br/>
+    <br/>
+    
+    <table width="100%">
+      <tr>
+        <td align="left" height="40"><b>Firma y Sello Receptor:</b></td>
+      </tr>
+    </table>
+
+  </body>
 </html>
