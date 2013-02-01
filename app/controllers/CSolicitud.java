@@ -11,7 +11,7 @@ import play.mvc.Security;
 import util.pdf.PDF;
 import views.html.formSolicitudes;
 import views.html.listarSolicitudes;
-import views.html.reportes;
+import views.html.comprobante;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -40,7 +40,7 @@ public class CSolicitud extends Controller {
 	
 	
 	
-	public static Result verReporte(Long id) {
+	public static Result comprobante(Long id) {
 
 		Connection con = DB.getConnection();
 		String lph = null;
@@ -97,7 +97,7 @@ public class CSolicitud extends Controller {
 	    	e.printStackTrace();
 	    }
 		
-		return PDF.ok(reportes.render(lph, fechaRegSol, tenencia, estadoSol, docCompleta, observacion, cedula, nombre, apellido, telefono, nacionalidad, direccion, sexo, ingresoMensual, hijos, solicitud));
+		return PDF.ok(comprobante.render(lph, fechaRegSol, tenencia, estadoSol, docCompleta, observacion, cedula, nombre, apellido, telefono, nacionalidad, direccion, sexo, ingresoMensual, hijos, solicitud));
 	}
 
 	
@@ -212,10 +212,10 @@ public class CSolicitud extends Controller {
 				String docCompleta = formRegSol.get("docCompleta");
 				String observacion = formRegSol.get("observacion");
 				
-
-				DateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
+				
+				DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
    				Date fechaDate = new Date();
-   				String fecha = formateador.format(fechaDate);
+   				String fecha = df.format(fechaDate);
 							
 
 				Connection con = DB.getConnection(); 

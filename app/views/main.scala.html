@@ -11,16 +11,19 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <!-- Le styles -->
      	<link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/united.min.css")"> 
         <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/bootstrap-datepicker.css")">
         <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
         <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.validate.css")">
-         <script src="@routes.Assets.at("javascripts/jquery-1.8.1.min.js")"></script>
+        <script src="@routes.Assets.at("javascripts/jquery-1.8.1.min.js")"></script>
         <script src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
         <script src="@routes.Assets.at("javascripts/bootstrap-datepicker.js")"></script>
         <script src="@routes.Assets.at("javascripts/jquery.validate.min.js")"></script>
         <script src="@routes.Assets.at("javascripts/ajax.js")"></script>
+
+        <script src="@routes.Assets.at("javascripts/highcharts.js")"></script>
+        <script src="@routes.Assets.at("javascripts/exporting.js")"></script>
+        
         
     <style type="text/css">
       body {
@@ -38,7 +41,6 @@
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <!-- Fav and touch icons -->
     <link rel="shortcut icon" href="http://twitter.github.com/bootstrap/assets/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-114-precomposed.png">
@@ -60,8 +62,11 @@
           <div class="nav-collapse collapse">
  			
             <ul class="nav">
-              <li class="active"><a href="#">Inicio</a></li>
-              <li><a href="#">Menu</a></li>
+              <li class="@("active".when(nav == "inicio"))"><a href="#">Inicio</a></li>
+              <li class="@("active".when(nav == "registros"))"><a href="@routes.CRegistro.listar()">Registros</a></li>
+              <li class="@("active".when(nav == "solicitudes"))"><a href="@routes.CSolicitud.listar()">Solicitudes</a></li>
+              <li class="@("active".when(nav == "reportes"))"><a href="@routes.CReportes.reportes()">Reportes</a></li>
+              <li class="@("active".when(nav == "estadisticas"))"><a href="@routes.CReportes.estadisticas()">Estadisticas</a></li>
             </ul>
             
             
@@ -88,11 +93,14 @@
             <ul class="nav nav-list">
                           
               <li class="nav-header">Solicitudes</li>
+              <li class="@("active".when(nav == "inicio"))"><a href="#">Inicio</a></li>
               <li class="@("active".when(nav == "registros"))"><a href="@routes.CRegistro.listar()">Registros</a></li>
               <li class="@("active".when(nav == "solicitudes"))"><a href="@routes.CSolicitud.listar()">Solicitudes</a></li>
-              <li><a href="#">Link</a></li>
+              <li class="@("active".when(nav == "reportes"))"><a href="@routes.CReportes.reportes()">Reportes</a></li>
+              <li class="@("active".when(nav == "estadisticas"))"><a href="@routes.CReportes.estadisticas()">Estadisticas</a></li>
+	            
 
-	      <li class="nav-header">Administracion</li>
+              <li class="nav-header">Administracion</li>
               <li class="@("active".when(nav == "usuarios"))"><a href="@routes.CUsuario.listar()">Usuarios</a></li>
               <li class="@("active".when(nav == "parroquias"))"><a href="@routes.CParroquias.listar()">Parroquias</a></li>
               <li class="@("active".when(nav == "tipoSol"))"><a href="@routes.CTSolicitud.listar()">Tipo de Solicitudes</a></li>
@@ -121,6 +129,12 @@
 
     
 
+
+
 </body>
+
+
+
+
 
 </html>

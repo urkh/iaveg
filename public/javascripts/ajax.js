@@ -10,6 +10,7 @@ $(document).ready(function() {
             window.alert('Error: ' + data.responseText);
         });    
 	});
+  
     
 });
 

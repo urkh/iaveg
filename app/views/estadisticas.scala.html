@@ -1,0 +1,90 @@
+@import helper._
+@implicitFieldConstructor = @{ FieldConstructor(bootstrapTemplates.render) } 
+
+
+@titulo = {
+   Estadisticas
+}
+
+
+
+
+@main(titulo, nav = "estadisticas") {
+
+
+
+<SELECT id="list">
+<OPTION VALUE="A">Data Set A
+<OPTION VALUE="B">Data Set B
+</SELECT>
+<button id="change">Refresh Table</button>
+
+<div id="asd" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+
+<script>
+
+
+
+var options = {
+    chart: {
+        renderTo: 'asd',
+        defaultSeriesType: 'pie'
+    },
+     series: [{
+               type: 'pie',
+               name: 'Fruits',
+               data: []
+            }]
+};
+
+
+
+
+$("#change").click(function(){
+if ($("#list").val() == "A")
+{
+
+ 
+$.getJSON('/buscarE?buscar=a', function(data) {
+    //options.series = data;  
+
+    //console.log(data);  
+    //options.series = [{name: 'A', data: data}]
+
+ //   options.series[0].setData([data]);
+
+
+$.each(data, function(key, val) {
+                 // window.alert(key + ':' + val);
+
+                 //options.series = [{name: key, data: val}]
+                 //options.series[0].setData([data]);
+                  options.series[0].data.push([key, val]);
+          });
+
+});
+
+   // 
+    //$.get('/dough/includes/live-chart.php?mode=month'
+}
+else
+{
+    options.series = [{name: 'B', data: [3,2,1,2,3]}]
+    //$.get('/dough/includes/live-chart.php?mode=newmode'
+} 
+var chart = new Highcharts.Chart(options);    
+});
+
+
+
+
+</script>
+
+
+
+
+
+}
+
+
+

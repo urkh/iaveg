@@ -47,7 +47,14 @@ GET     /solicitudes               		controllers.CSolicitud.listar(p:Int ?= 0, s
 GET     /solicitudes/:id           		controllers.CSolicitud.editar(id:Long)
 POST    /solicitudes/actualizar        	controllers.CSolicitud.actualizar()
 GET     /buscarCedula               	controllers.CSolicitud.buscarCedula()
-GET     /verReporte/:id               	controllers.CSolicitud.verReporte(id:Long)
+GET     /comprobante/:id               	controllers.CSolicitud.comprobante(id:Long)
+
+
+
+# reportes
+GET     /estadisticas         			controllers.CReportes.estadisticas()
+GET     /reportes	         			controllers.CReportes.reportes()
+GET     /buscarE     		         	controllers.CReportes.buscarE()
 
 
 

@@ -1,4 +1,3 @@
-
 @(paginaActual: Page[Solicitud], currentSortBy: String, currentOrder: String, currentFilter: String)
 @import helper._
 
@@ -87,7 +86,7 @@
                     <tr @if(solicitudes.estadoSol=="Aprobada"){class="success"}else{class="error"}>
                     
                         <td>
-                            <a href="@routes.CSolicitud.verReporte(solicitudes.id)"><i class="icon-th-list"></i></a>
+                            <a href="@routes.CSolicitud.comprobante(solicitudes.id)"><i class="icon-th-list"></i></a>
                         </td>
                     
                         <td>
