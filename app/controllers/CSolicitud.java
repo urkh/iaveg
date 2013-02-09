@@ -86,11 +86,7 @@ public class CSolicitud extends Controller {
 				 ingresoMensual = String.valueOf(res.getDouble("ingreso_mensual"));
 				 hijos = String.valueOf(res.getInt("hijos"));
 				 solicitud = res.getString("solicitud");
-
-
-				 
-
-			    
+   
 			}
 
 	    } catch (SQLException e) {

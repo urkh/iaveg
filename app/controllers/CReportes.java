@@ -1,7 +1,6 @@
 package controllers;
 
 import play.db.DB;
-import play.libs.Json;
 
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -11,14 +10,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import org.codehaus.jackson.node.ObjectNode;
+
 
 import views.html.reportes;
 import views.html.estadisticas;
@@ -41,53 +35,65 @@ public class CReportes extends Controller{
 	}
 
 
-	public static Result buscarE() {
+	public static Result buscarTorta() {
 		Map<String,String[]> queryParameters = request().queryString();
 
-		String cedulaRe = queryParameters.get("buscar")[0];
-		Connection con = DB.getConnection(); 
-		Status resp = null;
+		String fechaD = queryParameters.get("fechaD")[0];
+		String fechaH = queryParameters.get("fechaH")[0];
+
+		Connection con = DB.getConnection();
+		PreparedStatement pstm = null;
+		ResultSet res = null;
 		
+		Status resp = null;
+		Integer apro = null;
+		Integer repro = null;
 		
 		try{
-			PreparedStatement pstm = con.prepareStatement("SELECT count(id) AS apro FROM solicitud WHERE estado_sol='Aprobada'");
-			ResultSet res = pstm.executeQuery();
-			
-			
+
+			pstm = con.prepareStatement("SELECT count(id) AS apro FROM solicitud WHERE estado_sol='Aprobada' AND DATE(fecha_reg_sol) BETWEEN '"+fechaD+"' AND '"+fechaH+"'");
+			res = pstm.executeQuery();
+
 			if (res.next()){
-				
-				
-				System.out.println(cedulaRe);
-				String apro = res.getString("apro");
-				//String repro = res.getString("repro");
 
-				//Map<String,String> d = new HashMap<String,String>();
-
-				
-				List d = Arrays.asList(apro, "9");
-				
-				
-		        //d.put("apro", "9");
-		        //d.put("repro", "6");
-		       // d.put("registro", repro);
-
-	
-				 
-				resp=ok(Json.toJson(d)); 
+				apro = res.getInt("apro");
 
 		    }else{
-		    	
-		    	resp=badRequest("No se encontraron resultados.");
-		    
+		    	apro = 0;
 		    }
 			
 			
 		} catch (SQLException e) {
 	    	e.printStackTrace();
-	    }
+	    } 
+
+
+
+	   	try{
+
+			pstm = con.prepareStatement("SELECT count(id) AS repro FROM solicitud WHERE estado_sol='No Aprobada'AND DATE(fecha_reg_sol) BETWEEN '"+fechaD+"' AND '"+fechaH+"'");
 			
+			res = pstm.executeQuery();
+			
+			if (res.next()){
+
+				repro = res.getInt("repro");
+
+		    }else{
+
+		    	repro = 0;
+		    }
+			
+			
+		} catch (SQLException e) {
+	    	e.printStackTrace();
+	    } finally{
+	    	  SQLUtils.closeQuietly(res);
+	    	  SQLUtils.closeQuietly(pstm);
+	    	  SQLUtils.closeQuietly(con);
+	   	}	
 		
-		return resp;
+		return resp=ok("[[\"Aprobadas\", "+apro+"], [\"No Aprobadas\", "+repro+"]]"); 
 		
 	}
 

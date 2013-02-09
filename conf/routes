@@ -54,7 +54,7 @@ GET     /comprobante/:id               	controllers.CSolicitud.comprobante(id:Lo
 # reportes
 GET     /estadisticas         			controllers.CReportes.estadisticas()
 GET     /reportes	         			controllers.CReportes.reportes()
-GET     /buscarE     		         	controllers.CReportes.buscarE()
+GET     /buscarTorta     		        controllers.CReportes.buscarTorta()
 
 
 
