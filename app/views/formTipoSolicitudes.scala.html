@@ -8,13 +8,12 @@
 
 		@inputText(formTipoSolicitudes("codigo"), 
             '_label -> "Codigo",
-			'required -> "required",
  	    	'maxlength -> "30"
 	    )
 
         @inputText(formTipoSolicitudes("solicitud"), 
             '_label -> "Nombre",
-			'required -> "required",
+			Symbol("required") -> "",
  	    	'maxlength -> "30"
 	    )           
            

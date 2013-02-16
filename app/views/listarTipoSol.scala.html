@@ -37,9 +37,10 @@
 @main(titulo, nav = "tipoSol") {
 
 
-    
+    <div class="page-header">
     <h1 id="homeTitle">@Messages("tipoSol.listar.titulo", paginaActual.getTotalRowCount)</h1>
-
+    </div>
+    
     @if(flash.containsKey("exito")) {
         <div class="alert alert-success">
             <strong>Hecho!</strong> @flash.get("exito")
@@ -127,7 +128,7 @@
 
 
 
-<form data-validate="yes" action="@routes.CTSolicitud.guardar()" method="POST">
+<form action="@routes.CTSolicitud.guardar()" method="POST">
     <div id="formNuevo" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
 
         <div class="modal-header">
@@ -147,7 +148,7 @@
 </form>
 
 
-<form data-validate="yes" action="@routes.CTSolicitud.actualizar()" method="POST">    
+<form action="@routes.CTSolicitud.actualizar()" method="POST">    
 <div id="formEditar" class="modal fade hide" tabindex="-1" role="dialog" >
 
     <div class="modal-header">
@@ -172,6 +173,7 @@
     
         $(function () {
             $("[rel=tooltip]").tooltip();
+            $("input,select,textarea").not("[type=submit]").jqBootstrapValidation();
         });
                
         

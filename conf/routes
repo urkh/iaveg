@@ -56,6 +56,8 @@ GET     /estadisticas         			controllers.CReportes.estadisticas()
 GET     /reportes	         			controllers.CReportes.reportes()
 GET     /buscarTorta     		        controllers.CReportes.buscarTorta()
 
+GET     /buscarLinea     		        controllers.CReportes.buscarLinea()
+
 
 
 # CRUD usuarios

@@ -8,19 +8,17 @@
     <meta charset="utf-8">
     <title>@titulo - Instituto Autonomo de la Vivienda del Estado Guarico</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Sistema para el control y registro de solicitudes del Instituto Autonomo de la Vivienda del Estado Guarico">
+    <meta name="Gustavo Leon" content="Email: gust989 en gmail">
 
      	<link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/united.min.css")"> 
         <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/bootstrap-datepicker.css")">
         <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
-        <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.validate.css")">
         <script src="@routes.Assets.at("javascripts/jquery-1.8.1.min.js")"></script>
         <script src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
         <script src="@routes.Assets.at("javascripts/bootstrap-datepicker.js")"></script>
-        <script src="@routes.Assets.at("javascripts/jquery.validate.min.js")"></script>
+        <script src="@routes.Assets.at("javascripts/jqBootstrapValidation.js")"></script>
         <script src="@routes.Assets.at("javascripts/ajax.js")"></script>
-
         <script src="@routes.Assets.at("javascripts/highcharts.js")"></script>
         <script src="@routes.Assets.at("javascripts/exporting.js")"></script>
         
@@ -40,8 +38,6 @@
       #footer {
         background-color: #f5f5f5;
       }
-
-      /* Lastly, apply responsive CSS fixes as necessary */
       
         #footer {
           margin-left: -20px;
@@ -50,62 +46,47 @@
           padding-right: 20px;
         }
 
-      
-
-
-
     </style>
     <link href="@routes.Assets.at("stylesheets/bootstrap-responsive.css")" rel="stylesheet">
-
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
     <link rel="shortcut icon" href="http://twitter.github.com/bootstrap/assets/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-57-precomposed.png">
+
   </head>
 
   <body>
 
+
+
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
-        <div class="container-fluid">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
-          </a>
+          </button>
           <a class="brand" href="#">iaveg</a>
           <div class="nav-collapse collapse">
- 			
             <ul class="nav">
-              <li class="@("active".when(nav == "inicio"))"><a href="#">Inicio</a></li>
               <li class="@("active".when(nav == "registros"))"><a href="@routes.CRegistro.listar()">Registros</a></li>
               <li class="@("active".when(nav == "solicitudes"))"><a href="@routes.CSolicitud.listar()">Solicitudes</a></li>
               <li class="@("active".when(nav == "reportes"))"><a href="@routes.CReportes.reportes()">Reportes</a></li>
               <li class="@("active".when(nav == "estadisticas"))"><a href="@routes.CReportes.estadisticas()">Estadisticas</a></li>
             </ul>
-            
-            
-             <ul class="nav pull-right">
-            
-            	<li class="dropdown">
-            		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuario<b class="caret"></b></a>
-					
-					<ul class="dropdown-menu">
-						<li><a href="@routes.LoginU.desconectar()">Cerrar Sesion</a></li>
-					</ul>
-				</li>
-			</ul>
+
+            <ul class="nav pull-right">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuario<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="@routes.LoginU.desconectar()">Cerrar Sesion</a></li>
+                </ul>
+              </li>
+            </ul>
             
           </div>
         </div>
       </div>
     </div>
+
 
     <div class="container-fluid">
       <div class="row-fluid">
@@ -114,7 +95,6 @@
             <ul class="nav nav-list">
                           
               <li class="nav-header">Solicitudes</li>
-              <li class="@("active".when(nav == "inicio"))"><a href="#">Inicio</a></li>
               <li class="@("active".when(nav == "registros"))"><a href="@routes.CRegistro.listar()">Registros</a></li>
               <li class="@("active".when(nav == "solicitudes"))"><a href="@routes.CSolicitud.listar()">Solicitudes</a></li>
               <li class="@("active".when(nav == "reportes"))"><a href="@routes.CReportes.reportes()">Reportes</a></li>
@@ -142,20 +122,11 @@
 
       <hr>
 
+      <footer>
+        <p align="center" class="muted credit"><a href="http://iaveg.org.ve/">© iaveg 2013 </a></p>
+        <p align="center" class="muted credit">Instituto Autonomo de la Vivienda del Estado Guarico</p>
+      </footer>
+
     </div>
-
-    <div id="footer">
-      <div class="container">
-        <p class="muted credit"><a href="http://iaveg.org.ve/">© iaveg 2013 </a></p>
-      </div>
-    </div>
-
-
-
-</body>
-
-
-
-
-
+  </body>
 </html>

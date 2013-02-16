@@ -37,8 +37,9 @@
 @main(titulo, nav = "parroquias") {
 
    
-    
+    <div class="page-header">
     <h1 id="homeTitle">@Messages("parroquias.listar.titulo", paginaActual.getTotalRowCount)</h1>
+    </div>
 
     @if(flash.containsKey("exito")) {
         <div class="alert alert-success">

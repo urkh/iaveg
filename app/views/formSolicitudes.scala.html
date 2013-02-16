@@ -15,7 +15,6 @@
         @inputText(formSolicitud("nombre"), 
             '_label -> "Nombre",
             'class -> "input-small",
-            'required -> "required",
             Symbol("readOnly") -> ""
         )  
         
@@ -23,7 +22,6 @@
         @inputText(formSolicitud("apellido"), 
             '_label -> "Apellido",
             'class -> "input-small",
-            'required -> "required",
             Symbol("readOnly") -> ""
         )  
 
@@ -31,7 +29,6 @@
         @select(formSolicitud("solicitud.id"), 
             options(TipoSolicitudes.opciones), 
             '_label -> "Solicitud",
-            'required -> "required",
             '_default -> "-- Seleccione una Solicitud --"
         )
 
@@ -75,8 +72,8 @@
         ) { (id, name, value, args) =>   
                 <input type="hidden" id="@id" name="@name" value="@value" @toHtmlArgs(args) />
                 <div class="btn-group" data-toggle="buttons-radio" data-target="docCompleta"> 
-<button type="button" class="btn btn-inverse @if(formSolicitud("docCompleta").value == "S"){active}" data-toggle="button" value="S">Completa</button>                   
-<button type="button" class="btn btn-inverse @if(formSolicitud("docCompleta").value == "N"){active}" data-toggle="button" value="N">Incompleta</button>
+                    <button type="button" class="btn btn-inverse @if(formSolicitud("docCompleta").value == "S"){active}" data-toggle="button" value="S">Completa</button>                   
+                <button type="button" class="btn btn-inverse @if(formSolicitud("docCompleta").value == "N"){active}" data-toggle="button" value="N">Incompleta</button>
                 </div>
        }
  		

@@ -27,8 +27,9 @@
 <input id="fechaH" name="fechaH" placeholder="Hasta..." class="input-small" rel="fecha" required="required" type="text">&nbsp;&nbsp;
 
     <select id="lista">
-        <option value="pie">Torta
-        <option value="area">Area
+        <option value="pie">Solicitudes Realizadas - Torta
+        <option value="linea">Solicitudes Realizadas - Linea
+          <option value="barra">Solicitudes Realizadas - Barra
       </select>
     <button id="ver" rel="tooltip" data-placement="right" title="Generar grafico" class="btn btn-primary">Ver</button>
 </div>
@@ -51,7 +52,6 @@ $("#ver").click(function(){
   var fechaH = $("#fechaH").val();
 
 
-
 if ($("#lista").val() == "pie"){
 
 
@@ -69,6 +69,18 @@ $.getJSON("/buscarTorta?fechaD="+fechaD+"&fechaH="+fechaH, function(json) {
       title: {
         text: 'Solicitudes'
       },
+
+      legend: {
+                align: 'right',
+                x: -100,
+                verticalAlign: 'top',
+                y: 20,
+                floating: true,
+                backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColorSolid) || 'white',
+                borderColor: '#CCC',
+                borderWidth: 1,
+                shadow: false
+            },
 
 
       tooltip: {
@@ -102,82 +114,144 @@ $.getJSON("/buscarTorta?fechaD="+fechaD+"&fechaH="+fechaH, function(json) {
 
   });
 
-}else if($("#lista").val() == "area"){
+}else if($("#lista").val() == "linea"){
 
 
-  chart = new Highcharts.Chart({
+  $.getJSON("/buscarLinea?fechaD="+fechaD+"&fechaH="+fechaH, function(json) {
+
+    chart = new Highcharts.Chart({
             chart: {
                 renderTo: 'grafico',
-                type: 'area'
+                type: 'line',
             },
             title: {
-                text: 'Historial de Solicitudes'
-            },
-            subtitle: {
-                text: 'Source: <a href="http://thebulletin.metapress.com/content/c4120650912x74k7/fulltext.pdf">'+'thebulletin.metapress.com</a>'
+                text: 'Promedio de Solicitudes',
             },
             xAxis: {
+                categories: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
                 labels: {
-                    formatter: function() {
-                        return this.value; // clean, unformatted number for year
-                    }
+                    rotation: -45,
+                    align: 'right',
+                   
                 }
             },
             yAxis: {
+                min: 0,
+                allowDecimals: false,
                 title: {
-                    text: 'Historial de Solicitudes'
+                    text: 'Solicitudes Realizadas'
                 },
+                
+            },
+
+
+
+
+            legend: {
+                align: 'right',
+                x: -100,
+                verticalAlign: 'top',
+                y: 20,
+                floating: true,
+                backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColorSolid) || 'white',
+                borderColor: '#CCC',
+                borderWidth: 1,
+                shadow: false
+            },
+
+
+            tooltip: {
+                formatter: function() {
+                        return 'En '+ this.x + ': <br/><b>'+ this.y +' '+ this.series.name +'</b>';
+                }
+            },
+
+            
+            series: json
+        });
+  
+  
+  
+  });
+
+
+
+}else if($("#lista").val() == "barra"){
+
+
+
+$.getJSON("/buscarLinea?fechaD="+fechaD+"&fechaH="+fechaH, function(json) {
+
+chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'grafico',
+                type: 'column'
+            },
+
+            title: {
+                text: 'Promedio de Solicitudes',
+            },
+            xAxis: {
+                categories: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
                 labels: {
-                    formatter: function() {
-                        return this.value / 1000 +'k';
+                    rotation: -45,
+                    align: 'right',
+                   
+                }
+            },
+            yAxis: {
+                min: 0,
+                allowDecimals: false,
+                title: {
+                    text: 'Solicitudes Realizadas'
+                },
+                stackLabels: {
+                    enabled: true,
+                    style: {
+                        fontWeight: 'bold',
+                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
                     }
                 }
+                
+            },
+
+
+            legend: {
+                align: 'right',
+                x: -100,
+                verticalAlign: 'top',
+                y: 20,
+                floating: true,
+                backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColorSolid) || 'white',
+                borderColor: '#CCC',
+                borderWidth: 1,
+                shadow: false
             },
             tooltip: {
                 formatter: function() {
-                    return '<b>Solicitudes '+this.series.name +' en '+this.x+':  </b> '+ Highcharts.numberFormat(this.y, 0) +'<br/>';
+                    return '<b>'+ this.x +'</b><br/>'+
+                        this.series.name +': '+ this.y +'<br/>'+
+                        'Total: '+ this.point.stackTotal;
                 }
             },
             plotOptions: {
-                area: {
-                    pointStart: 2009,
-                    marker: {
-                        enabled: false,
-                        symbol: 'circle',
-                        radius: 2,
-                        states: {
-                            hover: {
-                                enabled: true
-                            }
-                        }
+                column: {
+                    stacking: 'normal',
+                    dataLabels: {
+                        enabled: true,
+                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
                     }
                 }
             },
-            series: [{
-                name: 'Aprobadas',
-                data: [null, null, null, null, null, 6 , 11, 32, 110, 235, 369, 640,
-                    1005, 1436, 2063, 3057, 4618, 6444, 9822, 15468, 20434, 24126,
-                    27387, 29459, 31056, 31982, 32040, 31233, 29224, 27342, 26662,
-                    26956, 27912, 28999, 28965, 27826, 25579, 25722, 24826, 24605,
-                    24304, 23464, 23708, 24099, 24357, 24237, 24401, 24344, 23586,
-                    22380, 21004, 17287, 14747, 13076, 12555, 12144, 11009, 10950,
-                    10871, 10824, 10577, 10527, 10475, 10421, 10358, 10295, 10104 ]
-            }, {
-                name: 'No Aprobadas',
-                data: [null, null, null, null, null, null, null , null , null ,null,
-                5, 25, 50, 120, 150, 200, 426, 660, 869, 1060, 1605, 2471, 3322,
-                4238, 5221, 6129, 7089, 8339, 9399, 10538, 11643, 13092, 14478,
-                15915, 17385, 19055, 21205, 23044, 25393, 27935, 30062, 32049,
-                33952, 35804, 37431, 39197, 45000, 43000, 41000, 39000, 37000,
-                35000, 33000, 31000, 29000, 27000, 25000, 24000, 23000, 22000,
-                21000, 20000, 19000, 18000, 18000, 17000, 16000]
-            }]
-        });
 
-}
- 
-   
+            series: json
+        });
+    });
+
+  }
+
 });
+ 
 
 
 

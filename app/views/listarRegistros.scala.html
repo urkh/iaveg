@@ -37,8 +37,9 @@
 @main(titulo, nav = "registros") {
 
     
-    
+    <div class="page-header">
     <h1 id="homeTitle">@Messages("registros.listar.titulo", paginaActual.getTotalRowCount)</h1>
+    </div>
 
     @if(flash.containsKey("exito")) {
         <div class="alert alert-success">
@@ -179,15 +180,11 @@
 
 <script>
 
-$(document).ready(function(){
-$("#formNuevo").validate();
-  });
+    $(function () {
+        $("[rel=tooltip]").tooltip();
+    });
 
-        $(function () {
-            $("[rel=tooltip]").tooltip();
-        });
-
-    </script>    
+</script>    
     
         
 }
